@@ -148,10 +148,10 @@
 
                     if (afterSeminar == 0) {
                         $("#score").text("查看选题");
-                        //$("#up_sub").attr("disabled", false);
-                        //$("#delete").attr("disabled", false); 
-                        document.getElementById("up_sub").style.color = "black";
-                        document.getElementById("delete").style.color = "black"; 
+                        $("#up_sub").attr("disabled", false);
+                        $("#delete").attr("disabled", false); 
+                        $("#up_sub").css("background-color", "#d4eef2");
+                        $("#delete").css("background-color", "#d4eef2");
 
                     }
                     else {
@@ -192,9 +192,9 @@
             }
             return null;
         }
+        var courseId = getQueryString("courseId");//当前课程id
+        var seminarId = getQueryString("seminarId");
         $('#delete').click(function () {
-            var courseId = getQueryString("courseId");//当前课程id
-            var seminarId = getQueryString("seminarId");//当前班级号
 
             $.ajax({
                 type: "DELETE",
@@ -219,9 +219,6 @@
             });
         });
             $("#score").click(function () {
-                var courseId = window.location.href.split("=")[1];//当前课程id
-                var seminarId = window.location.href.split("=")[2];
-
                 if ($('#score').text() == "查看选题")
                     var url = "/Teacher/CheckTopicSelection?courseId=" + courseId + "&seminarId=" + seminarId;
                 else

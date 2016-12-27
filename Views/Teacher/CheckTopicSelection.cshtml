@@ -56,9 +56,16 @@
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
-            var courseId = window.location.href.split("=")[1];//当前课程id
-            var seminarId = window.location.href.split("=")[2];
-
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+            var courseId = getQueryString("courseId");//当前课程id
+            var seminarId = getQueryString("seminarId");
 
             //初始化   左侧
             $.ajax({
@@ -94,7 +101,7 @@
                                  topicName += " & " + data[i].topics[t].serial;
                              }
                          }
-                         $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>");                
+                         $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td></tr>");                
                      }
                  },
                  statusCode: {
