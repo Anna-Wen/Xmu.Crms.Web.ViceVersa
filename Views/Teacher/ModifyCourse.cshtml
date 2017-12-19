@@ -1,0 +1,131 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>修改课程</title>
+    <link href="/css/Teacher/TeacherCreateCoursePage.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="~/Teacher/BasicInfo">基本信息</a>
+                <a class="guidefont" href="~/Teacher/TeacherCourseHomePage">课程信息</a>
+                <a class="guidefont" href="~/Teacher/CreateCourse">新建课程</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="title">修改课程</div>
+            <hr class="line" />
+
+            <br />
+            <div class="form">
+                <div class="itemName">
+                    课程名称*：<input type="text" name="coursename" id="name"/>
+
+                    <br />
+                    <br />
+                    开始时间*：<input type="date" name="begintime" id="startTime"/> <br/><br/> 结束时间*：<input type="date" name="endtime" id="endTime"/><br /><br />
+
+                    课程介绍：<br />
+                    <textarea name="courseinfo" cols="80" rows="5" id="description"></textarea><br /><br />
+                    <br />
+                    <div class="buttons">
+
+                        <input class="button" type="submit" id="submit" onclick="submitCourseInfo()" value="提交">
+                        <input class="button" type="reset" id="reset" onclick="empty()"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="clear"></div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () { 
+            var courseId = getQueryString("courseId");
+            $.ajax({
+                type: 'GET',
+                url: "/course/" + courseId,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    $("#name").val(data.name);
+                    $("#startTime").val(data.startTime);
+                    $("#endTime").val(data.endTime);
+                    $("#description").val(data.description);
+                }
+            });
+         });
+    </script>
+    <script type="text/javascript">
+
+            //提交新建课程信息
+            function submitCourseInfo() {
+            var urlSkip = "/Teacher/TeacherCourseHome";
+            var courseInfo = {
+                Name: $("#name").val(),
+                StartTime: $("#startTime").val(),
+                EndTime: $("#endTime").val(),
+                Description: $("#description").val()
+            };
+
+            //var courseId = getQueryString(courseId);
+            $.ajax({
+                type: 'POST',
+                url: "/course",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(courseInfo),
+                success: function (data, status) {
+                    window.location.href = urlSkip;
+                }
+            });
+        }//提交新建课程信息end
+
+        //重置课程信息
+            function empty() {
+            $("#name").val("");
+            $("#startTime").val("");
+            $("#endTime").val("");
+            $("#description").val("");
+            $("#report").val("");
+            $("#presentation").val("");
+            $("#c").val("");
+            $("#b").val("");
+            $("#a").val("");
+            }//重置课程信息end
+
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+    </script>
+</body>
+</html>
+

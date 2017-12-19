@@ -1,0 +1,238 @@
+﻿@{
+    Layout = null;
+}
+<!--组内人数上限少这个参数？剩余小组数目-->
+<!DOCTYPE html>
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新讨论课查看话题（上课前）</title>
+    <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName" id="courseName"></div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">查看话题</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">题    目*:</label>
+                        <label class="itemName" id="topicName"></label>
+                        <input height="20" type="text" id="inputName" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">说    明*:</label>
+                        <label class="itemName" id="topicDescription"></label>
+                        <input height="20" type="text" id="inputDescription" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组 数 限 制*:</label>
+                        <label class="itemName" id="topicGroupLimit"></label>
+                        <input height="20" type="text" id="inputGroupLimit" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组内人数上线*:</label>
+                        <label class="itemName" id="topicGroupMemberLimit"></label>
+                        <input height="20" type="text" id="inputGroupMemberLimit" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">剩余小组数目*:</label>
+                        <label class="itemName" id="GroupLeft"></label>
+                        <input height="20" type="text" id="groupLeft" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">已 选 小 组:</label>
+                        <label class="itemName"></label>
+                    </div>
+
+                    <div id="groupId">
+
+                    </div>
+
+                    <div class="item">
+                        <button class="submit" onclick="update_submit()" id="up_sub">修改</button>
+                        <button class="reset"  onclick="delete_topic()" id="delete">删除话题</button>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程id
+            var seminarId = window.location.href.split("=")[2];//当前讨论课号
+            var afterSeminar = window.location.href.split("=")[3];//判断是否已过时
+
+            if (afterSeminar == 1)
+            {
+                document.getElementById("up_sub").style.display = "none";
+                document.getElementById("delete").style.display = "none";
+            }
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+           
+
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+
+
+            //显示选择该话题的小组ID
+            var addgroupInfo = function (a) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Topic/' + a + "/group",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+
+                        for (var i = 0; i < data.length; i++)
+                            $('#groupId').append("<div class='item' style='margin-left: 23.5%'><label class='itemName'>" + data[i].name + "</label></div>");
+                    }
+                })
+                //document.write("addGroupid");//--------------
+
+            }//显示小组ID结束
+
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/Topic/' + seminarId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    //显示讨论课信息
+                    $('#topicName').text(data.name);
+                    $('#topicDescription').text(data.description);
+                    $('#topicGroupLimit').text(data.groupLimit);
+                    $('#topicGroupMemberLimit').text(data.groupMemberLimit);
+                    $('#GroupLeft').text(data.groupLeft);
+
+                    //显示小组信息
+                    addgroupInfo(str);
+                }
+            });//初始化结束
+
+        });
+    </script>
+    <script type="text/javascript">
+        var str = window.location.href.split("=")[1];//当前讨论课号
+
+        function update_submit() {
+            if ($("#up_sub").text() == "修改") {
+                var topicInfo = {
+                    Name: $("#topicName").text(),
+                    Description: $("#topicDescription").text(),
+                    GroupLimit: $("#topicGroupLimit").text(),
+                    GroupMemberLimit: $("#topicGroupMemberLimit").text(),
+                };
+                $("[id^='topic']").hide();
+                $("[id^='input']").show();
+                $("#up_sub").text("提交");
+
+                $("#inputName").val(topicInfo.Name);
+                $("#inputDescription").val(topicInfo.Description);
+                $("#inputGroupLimit").val(topicInfo.GroupLimit);
+                $("#inputGroupMemberLimit").val(topicInfo.GroupMemberLimit);
+            }
+            else {
+                
+                var topicInfo = {
+                    Name: $("#inputName").val(),
+                    Description: $("#inputDescription").val(),
+                    GroupLimit: $("#inputGroupLimit").val(),
+                    GroupMemberLimit: $("#inputGroupMemberLimit").val()
+                };
+
+                $.ajax({
+                    
+                    url: "/topic/" + str,
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(topicInfo),
+                    success: function (data, status) {
+                $("[id^='input']").hide();    //如果controller写了topic put方法则可以交换这里上下的注释部分---------------
+                $("[id^='topic']").show();
+                $("#up_sub").text("修改");
+
+                $("#topicName").text(topicInfo.Name);
+                $("#topicDescription").text(topicInfo.Description);
+                $("#topicGroupLimit").text(topicInfo.GroupLimit);
+                $("#topicGroupMemberLimit").text(topicInfo.GroupMemberLimit);
+                    }
+                    //error:
+                });
+                //$("[id^='input']").hide();
+                //$("[id^='topic']").show();
+                //$("#up_sub").text("修改");
+
+                //$("#topicName").text(topicInfo.Name);
+                //$("#topicDescription").text(topicInfo.Description);
+                //$("#topicGroupLimit").text(topicInfo.GroupLimit);
+                //$("#topicGroupMemberLimit").text(topicInfo.GroupMemberLimit);
+            }//else end
+
+        }//修改/确认点击结束
+    </script>
+    <script type="text/javascript">
+        var seminarId = window.location.href.split("=")[2];
+        //var urlSkip = "/Teacher/NewSeminar"+str;//跳转到查看新讨论吗？？？-------------------
+        function delete_topic() {
+            $.ajax({
+                url: "/topic/" + seminarId,
+                typt: "DELETE",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    //window.location.href = str2;
+                    alert("删除话题成功！");
+                    window.history.back();
+                }
+
+            });
+
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选择课程</title>
+    <link href="/css/Student/StudentChooseCoursePage.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="/images/home.png"><a href="~/Student/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="/Student/BasicInfo">基本信息</a>
+                <a class="guidefont" href="/Student/StudentCourseHome">课程信息</a>
+                <a class="guidefont" href="#">选择课程</a>
+            </div>
+        </div>
+        <div class="content" id="mainContent">
+            <div class="title">选择课程</div>
+            <hr class="line" />
+
+            <div class="checkcourse">
+                <form class="itemName">
+                    任课教师：<input type="text" name="teacher" id="checkteacher"><br />
+                    课程名称：<input type="text" name="course" id="checkcourse"><input type="submit" value="查询" id="check">
+                </form>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/class',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    //生成班级列表
+                    for (var i = 0; i < data.length; i++) {
+                        $('#mainContent').append("<div class='main_box_right_content' id='table"+i+"'></div></br>");
+                        $('#table'+i).append("<h3 class='classtitle'>" + data[i].courseName + "<button id='" + data[i].id + "' onclick='choose(event,"+data[i].id+")'>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
+                    }
+                }
+            });
+        })
+    </script>
+    <script>
+        //选择课程
+        function choose(event, id) {
+            event.stopPropagation();
+            var studentInfo = { Id: 233 };
+            if ($('#' + id).text() == "选择课程") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/class/' + id + '/student',
+                    data: JSON.stringify(studentInfo),
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+                        //alert($('#table' + obj.id).id);
+                        $('#' + id).text("退选课程");
+                    }
+                });
+            }
+            else
+            {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/class/' + id + '/student/233',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+                        //alert($('#table' + obj.id).id);
+                        $('#' + id).text("选择课程");
+                    }
+                });
+            }
+        }
+
+        //点击查询
+        $('#check').on('click', function () {
+            var checkteacher = $("#checkteacher").val();
+            var checkcourse = $("#checkcourse").val();
+            var url = "/class?courseName=" + checkcourse + "&courseTeacher=" + checkteacher;
+            //if (!($("#checkteacher").val() == "" && $("#checkcourse").val() == ""))
+            //{
+            //    if ($("#checkteacher").val() == "") {
+            //        alert("122");
+            //        url = "/class?courseName=" + checkcourse;
+            //    }
+            //    else if ($("#checkcourse").val() == "")
+            //        url = "/class?courseTeacher=" + checkteacher;
+            //    else
+            //        url = "/class?courseName=" + checkcourse + "&courseTeacher=" + checkteacher;
+            //} else
+            //    url = "/class";
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    $('#mainContent').hide();
+                    $('#mainContent').append("<div class='content' id='mainContent'><div class='title'>选择课程</div><hr class='line' /><div class='checkcourse'><form class='itemName'>任课教师：<input type='text' name='teacher' id='checkteacher'><br />课程名称：<input type='text' name='course' id='checkcourse'><input type='submit' value='查询' id='check'></form></div></div>");
+                    for (var i = 0; i < data.length; i++)
+                        $('#mainContent').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

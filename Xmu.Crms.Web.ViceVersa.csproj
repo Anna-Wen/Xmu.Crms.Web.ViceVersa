@@ -1,0 +1,97 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+    <None Include="wwwroot\css\Common\AccountLoginPage.css" />
+    <None Include="wwwroot\css\Common\bootstrap.min.css" />
+    <None Include="wwwroot\css\Common\HomePage.css" />
+    <None Include="wwwroot\css\Common\InfoModifyPage.css" />
+    <None Include="wwwroot\css\Common\RegisterPage.css" />
+    <None Include="wwwroot\css\Common\WechatLoginPage.css" />
+    <None Include="wwwroot\css\site.css" />
+    <None Include="wwwroot\css\site.min.css" />
+    <None Include="wwwroot\css\Student\content.css" />
+    <None Include="wwwroot\css\Student\StudentBindPage.css" />
+    <None Include="wwwroot\css\Student\StudentChooseCoursePage.css" />
+    <None Include="wwwroot\css\Student\StudentCourseHomePage.css" />
+    <None Include="wwwroot\css\Student\StudentCourseInformation.css" />
+    <None Include="wwwroot\css\Teacher\content.css" />
+    <None Include="wwwroot\css\Teacher\TeacherBindPage.css" />
+    <None Include="wwwroot\css\Teacher\TeacherCourseHomePage.css" />
+    <None Include="wwwroot\css\Teacher\TeacherCourseInformation.css" />
+    <None Include="wwwroot\css\Teacher\TeacherCreateCoursePage.css" />
+    <None Include="wwwroot\css\Teacher\TeacherCreateSchool.css" />
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\images\add.png" />
+    <None Include="wwwroot\images\back.png" />
+    <None Include="wwwroot\images\banner1.svg" />
+    <None Include="wwwroot\images\banner2.svg" />
+    <None Include="wwwroot\images\banner3.svg" />
+    <None Include="wwwroot\images\banner4.svg" />
+    <None Include="wwwroot\images\delete.png" />
+    <None Include="wwwroot\images\download.png" />
+    <None Include="wwwroot\images\exit.png" />
+    <None Include="wwwroot\images\help.png" />
+    <None Include="wwwroot\images\home.png" />
+    <None Include="wwwroot\images\smalladd.png" />
+    <None Include="wwwroot\images\user.png" />
+    <None Include="wwwroot\images\view.png" />
+    <None Include="wwwroot\js\dropzone.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\js\site.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\npm.js" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\jquery\LICENSE.txt" />
+    <None Include="wwwroot\report\233.pdf" />
+    <None Include="wwwroot\roster\周一1-2班.xlsx" />
+    <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.0.3" />
+  </ItemGroup>
+  
+  <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
+    <ItemGroup>
+      <DepsFilePaths Include="$([System.IO.Path]::ChangeExtension('%(_ResolvedProjectReferencePaths.FullPath)', '.deps.json'))" />
+    </ItemGroup>
+    <Copy SourceFiles="%(DepsFilePaths.FullPath)" DestinationFolder="$(OutputPath)" Condition="Exists('%(DepsFilePaths.FullPath)')" />
+  </Target>
+
+</Project>
