@@ -81,5 +81,6 @@ namespace Xmu.Crms.Web.ViceVersa.Controllers
         public IActionResult ModifyCourse()
         {
             return View();
-        }    }
+        }    
+    }
 }
