@@ -9,10 +9,10 @@ namespace Xmu.Crms.Web.ViceVersa.Controllers
         [Route("/")]
         public IActionResult HomePage()
         {
-            return Redirect("/Home/Login");
+            return Redirect("/Home/AccountLogin");
         }
 
-        [Route("/Home/Login")]
+        [Route("/Home/AccountLogin")]
         public IActionResult AccountLogin()
         {
             return View();
