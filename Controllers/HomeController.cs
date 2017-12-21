@@ -12,7 +12,6 @@ namespace Xmu.Crms.Web.ViceVersa.Controllers
             return Redirect("/Home/Login");
         }
 
-
         [Route("/Home/Login")]
         public IActionResult AccountLogin()
         {
