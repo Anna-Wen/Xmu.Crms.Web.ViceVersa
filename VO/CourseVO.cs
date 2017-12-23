@@ -34,7 +34,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
             Name = course.Name;
             StartTime = course.StartDate.ToString("yyyy-MM-dd");
             EndTime = course.EndDate.ToString("yyyy-MM-dd");
-            Console.WriteLine(StartTime);
+            Description = course.Description;
         }
     }
 }
