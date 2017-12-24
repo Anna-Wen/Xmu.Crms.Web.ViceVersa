@@ -104,7 +104,7 @@
             //初始化
             $.ajax({
                 type: 'GET',
-                url: '/class/' + classId,
+                url: '/class/1' /*+ classId*/,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
 
@@ -131,7 +131,7 @@
             };
 
 
-            //初始化   左侧
+           // 初始化   左侧
             $.ajax({
                 type: 'GET',
                 url: '/course/' + courseId,
@@ -149,7 +149,7 @@
     <script type="text/javascript">
        
         function update_submit() {
-            //document.write("update");//--------------------
+           
             var classId = window.location.href.split("=")[1];//当前班级号
 
             if ($("#up_sub").text() == "修改") {
