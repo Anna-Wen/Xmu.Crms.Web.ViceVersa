@@ -9,7 +9,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
     public class CourseVO
     {
         public long Id { get; set; }
-        public TeacherVO Teacher { get; set; }
+        public UserVO Teacher { get; set; }
         public string Name { get; set; }
         public int NumClass { get; set; }
         public int NumStudent { get; set; }
