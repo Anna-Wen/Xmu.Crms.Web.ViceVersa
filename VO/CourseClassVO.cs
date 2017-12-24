@@ -14,6 +14,6 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string Site { get; set; }
         public int CourseId { get; set; }
         public string CourseName { get; set; }
-        public TeacherVO CourseTeacher { get; set; }
+        public UserVO CourseTeacher { get; set; }
     }
 }

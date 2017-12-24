@@ -7,7 +7,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class ClassGroupVO
     {
-        public StudentVO Leader { get; set; }
-        public List<StudentVO> Members { get; set; }
+        public UserVO Leader { get; set; }
+        public List<UserVO> Members { get; set; }
     }
 }

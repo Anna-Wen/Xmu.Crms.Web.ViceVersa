@@ -19,6 +19,10 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string Title { get; set; }
         public string Avatar { get; set; }
 
+        public UserVO()
+        {
+        }
+
         public UserVO(long id, string type, string number, string name, string phone, string email, SchoolVO school, string title, string avatar)
         {
             Id = id;
