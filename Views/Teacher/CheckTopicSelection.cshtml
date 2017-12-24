@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>教师打分主页</title>
+    <title>教师查看学生选题情况</title>
     <link rel="stylesheet" href="/css/Common/bootstrap.min.css">
     <link rel="stylesheet" href="/css/Teacher/content.css">
 </head>
@@ -31,7 +31,7 @@
         </div>
         <div class="content">
             <div class="contentBlock">
-                <div class="title">评分</div>
+                <div class="title">选题情况</div>
                 <div class="returnButton" id="returnbtn">返回上一页</div>
                 <div class="line"></div>
                 <div class="itemBody">
@@ -41,11 +41,6 @@
                                 <th>Topic</th>
                                 <th>组名</th>
                                 <th>组长</th>
-                                <th>课堂讨论得分</th>
-                                <th>报告提交情况</th>
-                                <th>报告分数</th>
-                                <th>总分</th>
-                                <th>报告</th>
                             </tr>
                         </thead>
                         <tbody class="tableContent" id="tableBody">
@@ -70,7 +65,6 @@
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
-
                     $('#courseName').text(data.name);
                     $('#courseIntroduction').text(data.description);
                 }
@@ -82,38 +76,22 @@
                  url: "/seminar/" + seminarId+"/group",
                  contentType: "application/json;charset=utf-8",
                  dataType: "json",
-                 success: function (data, status)  //发两次请求???
+                 success: function (data, status)
                  {
                      for (var i = 0; i < data.length; i++)
                      {
-                         var ur = "/Teacher/TeacherScoreReport?groupId=" + data[i].id;
-                         var topicName, preGrade;
+                         var topicName;
                          for (var t = 0; t < data[i].topics.length; t++) {
                              if (t == 0)
                              {
                                  topicName = data[i].topics[t].serial;
-                                 preGrade = data[i].grade.presentationGrade[t];
                              }
                              else
                              {
                                  topicName += " & " + data[i].topics[t].serial;
-                                 preGrade += " & " + data[i].grade.presentationGrade[t];
                              }
                          }
-                         if (!data[i].report)
-                         {
-                             if (data[i].grade.reportGrade)
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
-                             else
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
-                         }                             
-                         else
-                         {
-                             if (data[i].grade.reportGrade)
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
-                             else
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
-                         }                         
+                         $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>");                
                      }
                  }
            });
