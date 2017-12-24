@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class User
+    public class UserVO
     {
         public int Id { get; set; }
         public string Type { get; set; }        //只能是student、teacher
@@ -14,7 +14,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Gender { get; set; }      //只能是male、female
-        public School School { get; set; }
+        public SchoolVO School { get; set; }
         public string Title { get; set; }
         public string Password { get; set; }
         public string UnionId { get; set; }

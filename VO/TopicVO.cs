@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class Topic
+    public class TopicVO
     {
         public int Id { get; set; }
         public string Serial { get; set; }

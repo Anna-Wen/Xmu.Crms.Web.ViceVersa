@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class ClassGroup
+    public class ClassGroupVO
     {
-        public Student Leader { get; set; }
-        public List<Student> Members { get; set; }
+        public StudentVO Leader { get; set; }
+        public List<StudentVO> Members { get; set; }
     }
 }

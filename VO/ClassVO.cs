@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class Class
+    public class ClassVO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,6 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string Site { get; set; }
         public int Calling { get; set; }
         public string Roster { get; set; }
-        public GradeProportion Proportions { get; set; }
+        public GradeProportionVO Proportions { get; set; }
     }
 }

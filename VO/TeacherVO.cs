@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class Student : User
+    public class TeacherVO : UserVO
     {
-        public Student() => Type = "student";
+        public TeacherVO() => Type = "teacher";
     }
 }

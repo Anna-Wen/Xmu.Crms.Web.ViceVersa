@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class School
+    public class SchoolVO
     {
         public int Id { get; set; }
         public string Name { get; set; }

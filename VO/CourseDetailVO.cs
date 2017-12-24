@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Xmu.Crms.Web.ViceVersa.VO
 {
-    public class CourseDetail
+    public class CourseDetailVO
     {
         public int Id { get; set; }
         public string Name { get; set; }
