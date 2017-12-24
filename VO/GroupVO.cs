@@ -7,7 +7,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class GroupVO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public StudentVO Leader { get; set; }
         public List<StudentVO> Members { get; set; }

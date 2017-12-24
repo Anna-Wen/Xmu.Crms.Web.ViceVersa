@@ -7,7 +7,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class UserVO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Type { get; set; }        //只能是student、teacher
         public string Number { get; set; }
         public string Name { get; set; }

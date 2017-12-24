@@ -7,7 +7,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class SeminarDetailVO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Site { get; set; }
         public string StartTime { get; set; }
