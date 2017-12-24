@@ -181,6 +181,7 @@
 
             }
             else {
+                //班级名称不能为空
 
                 var classInfo = {
                     Name: $("#inputName").val(),
@@ -195,7 +196,7 @@
 
                     }
                 };
-                
+              
                 $.ajax({
 
                     url: "/class/" + classId,

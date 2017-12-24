@@ -101,10 +101,10 @@
 
             //提交新建课程信息
             function submitClassInfo() {
-                var courseId = 1;//window.location.href.split("=")[1];//当前courseId
-                //document.write(courseId);
+                var courseId = window.location.href.split("=")[1];//当前courseId
+                
                 var urlSkip = "/Teacher/TeacherCourseInformation?courseId=" + courseId;//跳转到课程内页首页？？？-------------------
-            var classInfo = {
+                var classInfo = {
                 Name: $("#name").val(),
                 Time: $("#time").val(),
                 Site: $("#site").val(),
