@@ -81,8 +81,13 @@
     </script>
     <script type="text/javascript">
 
-            //提交新建课程信息
-            function submitCourseInfo() {
+            //提交修改课程信息
+        function submitCourseInfo() {
+            if ($("#name").val() == "" || $("#startTime").val() == "" || $("#endTime").val() == "")
+            {
+                alert("必填信息填写不全!");
+                return;
+            }
             var urlSkip = "/Teacher/TeacherCourseHome";
             var courseInfo = {
                 Name: $("#name").val(),
@@ -91,10 +96,10 @@
                 Description: $("#description").val()
             };
 
-            //var courseId = getQueryString(courseId);
+            var courseId = getQueryString("courseId");
             $.ajax({
-                type: 'POST',
-                url: "/course",
+                type: 'PUT',
+                url: "/course/" + courseId,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(courseInfo),
@@ -102,7 +107,7 @@
                     window.location.href = urlSkip;
                 }
             });
-        }//提交新建课程信息end
+        }//提交修改课程信息end
 
         //重置课程信息
             function empty() {
