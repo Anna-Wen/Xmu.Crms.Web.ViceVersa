@@ -70,19 +70,19 @@
         function deleteCourse(event,courseId)
         {
             event.stopPropagation();
-            $.ajax({
-                type: 'DELETE',
-                url: "/course/"+courseId,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                success: function (data, status) {
-                    //在页面上删除
-                    if (confirm("确定删除吗？")) {
+            if (confirm("确定删除吗？")) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "/course/" + courseId,
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (data, status) {
+                        //在页面上删除
                         var block = "#" + courseId;
                         $(block).hide();
                     }
-                }
-            });
+                });
+            }
         }
 
         function detailedInfo(courseId) {

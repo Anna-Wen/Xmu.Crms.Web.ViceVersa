@@ -79,7 +79,12 @@
     <script type="text/javascript">
 
             //提交新建课程信息
-            function submitCourseInfo() {
+        function submitCourseInfo() {
+            if ($("#name").val() == "" || $("#startTime").val() == "" || $("#endTime").val() == "" || $("#report").val() == "" || $("#presentation").val() == "" || $("#c").val() == "" || $("#b").val() == "" || $("#a").val() == "")
+            {
+                alert("必填信息填写不全!");
+                return;
+            }
             var urlSkip = "/Teacher/TeacherCourseHome";
             var courseInfo = {
                 Name: $("#name").val(),
