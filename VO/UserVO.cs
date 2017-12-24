@@ -50,7 +50,7 @@ namespace Xmu.Crms.Web.ViceVersa.VO
             else if (v.Type == Shared.Models.Type.Student)
             {
                 if (v.Education == Education.Bachelor)
-                    user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "本科", v.Avatar);
+                    user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "本科生", v.Avatar);
                 else if (v.Education == Education.Master)
                     user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "研究生", v.Avatar);
                 else
