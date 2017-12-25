@@ -31,58 +31,40 @@
 
         //初始化页面学校选项
         $(document).ready(function () {
-            //document.write("begin");//=====================
-            $.ajax({
-                url: "/school/province",
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                success: function(data,status){//首先加载省份信息
-                    for (var i = 0; i < data.length; i++)
-                   {
-
-                        $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
-
-                   }
+            $.getJSON('../js/province.json', function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $("#province").append("<option value=" + data[i].name + " id=" + data[i].ProID + ">" + data[i].name + "</option>");//动态添加省份信息
                 }
             });
-
-        });//初始化end
-
-        //获取城市
+        });
+        //获得城市列表
         function getCity() {
-            //document.write("city");//=====================
-            var province = ($('#province').find('option:selected').attr('value'));//--------------
-            $.ajax({
-                url: "/school/city?province=" + province,
-                type: "GET",
-                contentType: "application/json:charset=utf-8",
-                success: function (data, status) {//加载城市信息
-                    //alert(data[1]);//----------
-                    for (var i = 0; i < data.length; i++) {
-                        if (i == 0) {
-                            $("#city").empty();
-                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");
-                        }
-                        else
-                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
-                        //alert(data[i]);//----------
+            var province = ($('#province').find('option:selected').attr('value'));
+            var ProID = ($('#province').find('option:selected').attr('id'));
+            var first = 0;
+            $.getJSON('../js/city.json', function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ProID != ProID) continue;
+                    if (first == 0) {
+                        first++;
+                        $("#city").empty();
+                        $("#city").append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
                     }
-                    
+                    else
+                        $("#city").append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加城市信息
 
                 }
             });
-        }//获取城市end
-
-
-        //提交学校
+        }
+        //提交创建学校
         function submitInfo() {
-            //document.write("submit");//=====================
-
             var urlSkip = "/Home/Register";
+            var province = ($('#province').find('option:selected').attr('value'));
+            var city = ($('#city').find('option:selected').attr('value'));
             var SchoolInfo = {
                 Name: $("#name").val(),
-                Province: $("#province").text(),
-                City: $("#city").text()
+                Province: province,
+                City: city
             };
             $.ajax({
                 url: "/school",
@@ -96,7 +78,6 @@
                 }
             });
         }//提交新建课程信息end
-
 
     </script>
 </body>
