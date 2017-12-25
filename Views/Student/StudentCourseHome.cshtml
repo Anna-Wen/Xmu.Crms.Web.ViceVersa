@@ -68,7 +68,7 @@
             //var obj = event.srcElement;
             $.ajax({
                 type: "DELETE",
-                url: "/class/classId/student/1",
+                url: "/class/" + classId + "/student/4",    //这里studentId要改！！
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {

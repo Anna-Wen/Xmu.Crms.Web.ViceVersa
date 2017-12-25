@@ -45,17 +45,10 @@
 
         //初始化页面学校选项
         $(document).ready(function () {
-            //document.write("begin");//=====================
-            $.ajax({
-                url: "/school/province",
-                type: "GET",
-                contentType: "application/json;charset=utf-8",
-                success: function (data, status) {//首先加载省份信息
-                    for (var i = 0; i < data.length; i++) {
-                        $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
-
-
-                    }
+            $.getJSON('../js/province.json',function (data) {
+                for (var i = 0; i < data.length; i++)
+                {
+                  $("#province").append("<option value=" + data[i].name + " id=" +data[i].ProID+ ">" + data[i].name + "</option>");//动态添加省份信息
                 }
             });
 
@@ -63,36 +56,26 @@
 
         //获取城市
         function getCity() {
-            //alert("city");//=====================
-            //var province = $("#province").val();
-            //var province = ("#province  option:selected").text();
             var province = ($('#province').find('option:selected').attr('value'));//--------------
-            $.ajax({
-                url: "/school/city?province=" + province,
-                type: "GET",
-                contentType: "application/json:charset=utf-8",
-                success: function (data, status) {//加载城市信息
-                    //alert(data[1]);//----------
-                    for (var i = 0; i < data.length; i++) {
-                        if (i == 0)
-                        {
-                            $("#city").empty();
-                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");
-                        }
-                        else
-                        $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
-
-                        //alert(data[i]);//----------
+            var ProID = ($('#province').find('option:selected').attr('id'));//--------------
+            var first = 0;
+            $.getJSON('../js/city.json', function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ProID != ProID) continue;
+                    if (first == 0) {
+                        first++;
+                        $("#city").empty();
+                        $("#city").append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
                     }
+                    else
+                        $("#city").append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加城市信息
 
                 }
             });
-        }//获取城市end
-
+        }
 
         //提交绑定信息
         function putInfo() {
-            //document.write("putInfo");//=====================
 
             var g;//性别变量
             if (document.getElementById("male").checked)//可以通过这样来判断选择的那个性别？
@@ -139,7 +122,6 @@
 
         //提交所有信息
         function submitInfo() {
-            //document.write("submit");//=====================
 
             var PersonInfo = {
                 Password: $("#password").text(),
@@ -175,39 +157,27 @@
             var city = ($("#city").find('option:selected').attr('value'));//--------------
             //alert(city);
             //document.write("school");//=====================
-            $.ajax({
-                //url: "/school?city=" + city,
-                url: "/school?city=" + city,
-                type: "GET",
-                contentType: "application/json:charset=utf-8",
-                success: function (data, status) {//加载学校信息
-                    for (var i = 0; i < data.length; i++) {
-                       
-                        //if (i == 0)
-                        //{
-                        //    $('#school').empty();
-                        //    $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
-                        //}
-                        //else
-                        //    $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
-
-                        //$('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
-                        if (i == 0)
-                        {
-                            $('#school').empty();
-                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
+            if ($("#school").val() != null)//这里应该是用text还是val？
+            {
+                $.ajax({
+                    //url: "/school?city=" + city,
+                    url: "/school?city=" + city,
+                    type: "GET",
+                    contentType: "application/json:charset=utf-8",
+                    success: function (data, status) {//加载学校信息
+                        for (var i = 0; i < data.length; i++) {
+                            if (i == 0) {
+                                $('#school').empty();
+                                $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
+                            }
+                            else
+                                $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
                         }
-                        else
-                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
-
-
-                    }
-
-                }//加载学校信息
-            });
+                    }//加载学校信息
+                });
+            }
         }//获取学校end
         </script>
-
 </body>
 
 </html>

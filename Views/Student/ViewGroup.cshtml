@@ -18,7 +18,7 @@
         $(document).ready(function () { 
             var classId = 1;  //班级id从哪里来不懂
             var courseId = 1;
-
+            var groupId=1;
 
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
@@ -28,12 +28,15 @@
 
             //添加的学生传递给后台
             var addGroupMembers = function (data) {
-                alert(1);
+                var student = {
+                    StudentId: data.id,
+                };
+
                 $.ajax({
                     type: 'PUT',
                     url: '/class/'+classId+'/classgroup/add',
                     contentType: "application/json;charset=utf-8",
-                    data:data,
+                    data: JSON.stringify(student),
                     success: function (data, status) { 
 
                     }
@@ -42,11 +45,14 @@
 
             //删除的队员传递给后台
             var removeGroupMembers = function (data) {
+                var student = {
+                    StudentId: data.id,
+                };
                 $.ajax({
                     type: 'PUT',
                     url: '/class/' + classId + '/classgroup/remove',
                     contentType: "application/json;charset=utf-8",
-                    data: data,
+                    data: JSON.stringify(student),
                     success: function (data, status) {
 
                     }
@@ -152,6 +158,8 @@
                 url: '/class/' + classId + '/classgroup',
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
+                   
+
                     var rowNumber = 1;
                     //有队长时输出队长
                     if (data.leader) {
