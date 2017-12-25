@@ -70,8 +70,6 @@
     <!-- <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
     <script type="text/javascript">
         $(document).ready(function(){
-        	//$("#userName").text("JasperMaik");
-        	//$("#studentId").text("JasperMaik");
         	   $.ajax({
                   type: "GET",
         		  url: "/me",
@@ -160,6 +158,9 @@
                      statusCode: {
                          400: function () {
                              alert('信息不合法！');
+                         },
+                         404: function () {
+                             alert('用户不存在！');
                          }
                      }
                      //error:

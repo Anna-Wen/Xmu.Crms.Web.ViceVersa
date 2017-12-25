@@ -142,6 +142,11 @@
                         $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
                     }
                     $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?index=" + courseId + "=" + seminarId +"')><img src='/images/add.png' width='110' height='110'></div>");
+                },
+                statusCode: {
+                    404: function () {
+                        alert("该讨论课不存在!");
+                    }
                 }
             });
         })
@@ -156,6 +161,15 @@
                 success: function (data) {
                     alert("删除讨论课操作成功！");
                     window.history.back();
+                },
+                statusCode: {
+                    403: function () {
+                        alert("学生无法删除讨论课!");
+                    },
+                    404: function () {
+                        alert("该讨论课不存在!");
+                    }
+
                 }
                 //error: function (err) {
                 //    alert(err);
@@ -233,6 +247,15 @@
                             $("#seGroupingMethod").text(seminarInfo.GroupingMethod);
                             $("#seStartTime").text(seminarInfo.StartTime);
                             $("#seEndTime").text(seminarInfo.EndTime);
+                        },
+                        statusCode: {
+                            403: function () {
+                                    alert("学生无法修改讨论课!");
+                            },
+                            404: function () {
+                                alert("该讨论课不存在!");
+                            }
+
                         }
                         //error:
                     });

@@ -89,6 +89,14 @@
                 success: function (data, status) {
                     alert("新建学校操作成功");
                     window.location.href = urlSkip;     //跳转注册页面
+                },
+                statusCode: {
+                    409: function () {
+                        alert('该学校已创建！');
+                    },
+                    400: function () {
+                        alert("输入信息格式错误！");
+                    }
                 }
             });
         }//提交新建课程信息end

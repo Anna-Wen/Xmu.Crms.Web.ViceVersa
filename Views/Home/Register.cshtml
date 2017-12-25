@@ -115,10 +115,13 @@
                 statusCode: {
                     400: function () {
                         alert('输入信息不合法！');
+                    },
+                    404: function () {
+                        alert('该用户不存在！');
                     }
                 }
             });
-        }//重置课程信息end
+        }//end
 
         //提交所有信息
         function submitInfo() {
