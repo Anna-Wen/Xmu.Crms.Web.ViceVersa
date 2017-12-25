@@ -150,7 +150,7 @@
        
         function update_submit() {
            
-            var classId = window.location.href.split("=")[1];//当前班级号
+            var classId = window.location.href.split("=")[2];//当前班级号
 
             if ($("#up_sub").text() == "修改") {
                 var classInfo = {
@@ -158,10 +158,10 @@
                     Time: $("#classTime").text(),  //修改时 时间不用显示
                     Site: $("#classSite").text(),
                     Proportions: {
-                        Report: $("#classReport").text(), 
-                        Presentation: $("#classPresentation").text(), 
-                        C: $("#classC").text(), 
-                        B: $("#classB").text(), 
+                        Report: $("#classReport").text(),
+                        Presentation: $("#classPresentation").text(),
+                        C: $("#classC").text(),
+                        B: $("#classB").text(),
                         A: $("#classA").text()
                     }
                 };
@@ -183,71 +183,62 @@
             else {
                 //班级名称不能为空
                 var className = $("#inputName").val();
-                if (!className) { alert("不为空！"); }
-                var classInfo = {
-                    Name: $("#inputName").val(),
-                    Time: $("#inputTime").val(),
-                    Site: $("#inputSite").val(),
-                    Proportions: {
-                        Report: $("#inputReport").val(),
-                        Presentation: $("#inputPresentation").val(),
-                        C: $("#inputC").val(),
-                        B: $("#inputB").val(),
-                        A: $("#inputA").val()
+                if (!className) { alert("班级名称不为空！"); }
 
-                    }
-                };
-              
-                $.ajax({
 
-                    url: "/class/" + classId,
-                    type: "PUT",
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(classInfo),
-                    success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
-                        $("[id^='input']").hide();
-                        $("[id^='class']").show();
-                        $("#up_sub").text("修改");
+                else {
+                    var classInfo = {
+                        Name: $("#inputName").val(),
+                        Time: $("#inputTime").val(),
+                        Site: $("#inputSite").val(),
+                        Proportions: {
+                            Report: $("#inputReport").val(),
+                            Presentation: $("#inputPresentation").val(),
+                            C: $("#inputC").val(),
+                            B: $("#inputB").val(),
+                            A: $("#inputA").val()
 
-                        $("#className").text(classInfo.Name);
-                        $("#classSite").text(classInfo.Site);
-                        $("#classTime").text(classInfo.Time);
-                        $("#classReport").text(classInfo.Proportions.Report);
-                        $("#classPresentation").text(classInfo.Proportions.Presentation);
-                        $("#classC").text(classInfo.Proportions.C);
-                        $("#classB").text(classInfo.Proportions.B);
-                        $("#classA").text(classInfo.Proportions.A);
-                    }
-                    //error:
-                });
-                //$("[id^='input']").hide();
-                //$("[id^='class']").show();
-                //$("#up_sub").text("修改");
+                        }
+                    };
 
-                //$("#className").text(classInfo.Name);
-                //$("#classSite").text(classInfo.Site);
-                //$("#classTime").text(classInfo.Time);
-                //$("#classReport").text(classInfo.Proportions.Report);
-                //$("#classPresentation").text(classInfo.Proportions.Presentation);
-                //$("#classC").text(classInfo.Proportions.C);
-                //$("#classB").text(classInfo.Proportions.B);
-                //$("#classA").text(classInfo.Proportions.A);
-            }//else end
+                    $.ajax({
 
+                        url: "/class/" + classId,
+                        type: "PUT",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(classInfo),
+                        success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
+                            $("[id^='input']").hide();
+                            $("[id^='class']").show();
+                            $("#up_sub").text("修改");
+
+                            $("#className").text(classInfo.Name);
+                            $("#classSite").text(classInfo.Site);
+                            $("#classTime").text(classInfo.Time);
+                            $("#classReport").text(classInfo.Proportions.Report);
+                            $("#classPresentation").text(classInfo.Proportions.Presentation);
+                            $("#classC").text(classInfo.Proportions.C);
+                            $("#classB").text(classInfo.Proportions.B);
+                            $("#classA").text(classInfo.Proportions.A);
+                        }
+                        //error:
+                    });
+                }//else end
+            }
         }//修改/确认点击结束
     </script>
 
 
     <script type="text/javascript">
        
-        var classId = window.location.href.split("=")[1];//classId
+        var classId = window.location.href.split("=")[2];//classId
         var courseId = window.location.href.split("=")[1];//courseId
         var urlSkip = "/Teacher/CourseHome/" + courseId;
         function delete_class() {
             $.ajax({
                 url: "/class/" + classId,
-                typt: "DELETE",
+                type: "DELETE",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {
@@ -255,7 +246,6 @@
                     //window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
                     window.history.go(-1);
                 }
-
             });
 
         }
