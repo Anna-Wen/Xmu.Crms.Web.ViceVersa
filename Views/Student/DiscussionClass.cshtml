@@ -29,13 +29,34 @@
             };
             
             //上传报告按钮
-
-            $("#uploadReport").dropzone({
-                url: "/Student/DiscussionClass",
-                maxFiles: 10,
-                maxFilesize: 512,
-                acceptedFiles: ".js,.obj,.dae"
+            $("#uploadReport").click(function (evt) {
+                var fileUpload = $("#files").get(0);
+                var files = fileUpload.files;
+                var f = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    f.append(files[i].name, files[i]);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/Student/DiscussionClass",
+                    contentType: false,
+                    processData: false,
+                    data: f,
+                    success: function (data,status) {
+                        alert("报告上传成功!");
+                    },
+                    error: function () {
+                        alert("报告上传失败!");
+                    }
+                });
             });
+
+            //$("#uploadReport").dropzone({
+            //    url: "/Student/DiscussionClass",
+            //    maxFiles: 10,
+            //    maxFilesize: 512,
+            //    acceptedFiles: ".js,.obj,.dae"
+            //});
 
 
 
@@ -176,7 +197,11 @@
                     
                 </div>
                 <div class="item">
-                    <button class="uploadbutton" id="uploadReport">上传报告</button>
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" id="files" name="files" multiple />
+                        <input type="button" class="uploadbutton" id="uploadReport" value="Upload Selected Files"/>上传报告
+                    </form>
+                    @*<button class="uploadbutton" id="uploadReport">上传报告</button>*@
                 </div>
                 <div class="item">
                     <button class="viewscorebutton" id="checkGrade">查看分数</button>
