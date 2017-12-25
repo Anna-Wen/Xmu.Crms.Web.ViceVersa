@@ -182,7 +182,8 @@
             }
             else {
                 //班级名称不能为空
-
+                var className = $("#inputName").val();
+                if (!className) { alert("不为空！"); }
                 var classInfo = {
                     Name: $("#inputName").val(),
                     Time: $("#inputTime").val(),
