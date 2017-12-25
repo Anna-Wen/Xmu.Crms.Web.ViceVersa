@@ -69,6 +69,18 @@
                               //$(window).attr("location", "/Teacher/BasicInfo");
                           }
                       }
+                  },
+                  statusCode: {
+                      404: function () {
+                          alert('该账号未注册过！');
+                          $("#userName").empty;
+                          $("#password").empty;
+                      },
+                      401: function () {
+                          alert("输入的信息有误！请重新输入");
+                          $("#userName").empty;
+                          $("#password").empty;
+                      }
                   }
         		});
         }

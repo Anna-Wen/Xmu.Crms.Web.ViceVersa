@@ -39,9 +39,7 @@
                 success: function(data,status){//首先加载省份信息
                     for (var i = 0; i < data.length; i++)
                    {
-
                         $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
-
                    }
                 }
             });
@@ -67,8 +65,6 @@
                             $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
                         //alert(data[i]);//----------
                     }
-                    
-
                 }
             });
         }//获取城市end
