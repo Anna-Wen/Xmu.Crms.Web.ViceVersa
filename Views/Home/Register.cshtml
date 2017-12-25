@@ -45,16 +45,15 @@
 
         //初始化页面学校选项
         $(document).ready(function () {
-            //document.write("begin");//=====================
+            document.write("begin");//=====================
             $.ajax({
-                url: "/school/province",
                 type: "GET",
+                dataType="json",
+                url: "../js/ province.json",
                 contentType: "application/json;charset=utf-8",
-                success: function (data, status) {//首先加载省份信息
+                success: function (data) {//首先加载省份信息
                     for (var i = 0; i < data.length; i++) {
-                        $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
-
-
+                        $("#province").append("<option value=" + data[i].name + " id=" +data[i].ProID+ ">" + data[i].name + "</option>");//动态添加省份信息
                     }
                 }
             });
@@ -67,12 +66,15 @@
             //var province = $("#province").val();
             //var province = ("#province  option:selected").text();
             var province = ($('#province').find('option:selected').attr('value'));//--------------
+            var ProId = ($('#province').find('option:selected').attr('id'));//--------------
             $.ajax({
-                url: "/school/city?province=" + province,
                 type: "GET",
+                dataType="json",
+                url: "../js/ city.json",
                 contentType: "application/json:charset=utf-8",
-                success: function (data, status) {//加载城市信息
+                success: function (data) {//加载城市信息
                     //alert(data[1]);//----------
+                    //判断是不是这个呢
                     for (var i = 0; i < data.length; i++) {
                         if (i == 0)
                         {
