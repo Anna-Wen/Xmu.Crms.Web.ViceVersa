@@ -16,12 +16,24 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string Report { get; set; }
         public SeminarGradeVO Grade { get; set; }
 
+        // 另，Name的标准解决还没有！！！
+        // 不包含Members Topics Name Grade.PresentationGrade
         public static implicit operator GroupVO(SeminarGroup v)
         {
-            // Group的Name命名方法还没有解决？？？
-            GroupVO groupVO = new GroupVO { Id = v.Id };
+            GroupVO groupVO = new GroupVO { Id = v.Id, Leader = v.Leader, Report = v.Report };
+
+            // Grade (不包含PresentationGrade)
+            SeminarGradeVO seminarGradeVO = new SeminarGradeVO { ReportGrade = (int)v.ReportGrade, Grade = (int)v.FinalGrade };
+            groupVO.Grade = seminarGradeVO;
 
             return groupVO;
+        }
+
+        // Name:解决方案是用第一个Topic的Serial和Leader的名字来命名
+        public void GetName()
+        {
+            if (Topics.Count > 0)
+                Name = Topics[0].Serial + Leader.Name + "小组";
         }
     }
 }
