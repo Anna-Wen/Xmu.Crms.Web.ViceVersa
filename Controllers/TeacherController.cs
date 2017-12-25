@@ -81,6 +81,18 @@ namespace Xmu.Crms.Web.ViceVersa.Controllers
         public IActionResult ModifyCourse()
         {
             return View();
-        }    
+        }
+
+        [Route("/Teacher/CheckTopicSelection")]
+        public IActionResult CheckTopicSelection()
+        {
+            return View();
+        }
+
+        [Route("/Teacher/CheckSeminar")]
+        public IActionResult CheckSeminar()
+        {
+            return View();
+        }
     }
 }
