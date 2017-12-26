@@ -91,15 +91,23 @@
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
-            var courseId = window.location.href.split("=")[1];//当前课程id
-            var seminarId = window.location.href.split("=")[2];
-            var seminarNO = window.location.href.split("=")[3];
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
 
+            var courseId = getQueryString("courseId");//当前课程id
+            var seminarId = getQueryString("seminarId");//当前班级号
+            var seminarNO = getQueryString("seminarNO");//当前班级号s
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
             returnbtn.onclick = function () {
                 window.history.go(-1);
-            }; 
+            };
             $('#Title').text("讨论课"+seminarNO);
 
             //初始化   左侧
@@ -115,7 +123,7 @@
                 }
             });
 
-            
+
             $.ajax({
                 type: 'GET',
                 url: '/seminar/' + seminarId,
