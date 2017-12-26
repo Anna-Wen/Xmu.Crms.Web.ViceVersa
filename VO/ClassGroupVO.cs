@@ -8,11 +8,20 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class ClassGroupVO
     {
+        public ClassGroupVO()
+        {
+           
+        }
+
         public ClassGroupVO(FixGroup fixGroup, IList<UserInfo> groupMember)
         {
-            Leader = fixGroup.Leader;
+            Members = new List<UserVO>();
+           Leader = fixGroup.Leader;
             foreach (UserInfo u in groupMember)
+            {
+                if (u.Id == Leader.Id) continue;
                 Members.Add(u);
+            }
         }
 
         public UserVO Leader { get; set; }
