@@ -132,7 +132,18 @@
                     B: $("#b").val(),
                     A: $("#a").val()
                 }
-            };
+                };
+                var f;
+                if ($("#roster").val != "")
+                {
+                    var fileUpload = $("#roster").get(0);
+                    var files = fileUpload.files;
+                    f = new FormData();
+                    for (var i = 0; i < files.length; i++) {
+                        f.append(files[i].name, files[i]);
+                    }
+                }
+
             $.ajax({
                 url:"/course/" + courseId + "/class",
                 type:"POST",
@@ -142,6 +153,26 @@
                 headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     alert("班级创建操作成功！");
+
+                    // 去upload excel
+                    if ($("#roster").val != "")
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url: "/upload/roster?classId=" + data.id,
+                            contentType: false,
+                            processData: false,
+                            data: f,
+                            headers: { "Authorization": "Bearer " + token },
+                            success: function (data, status) {
+                                alert("学生名单上传成功!");
+                            },
+                            error: function (data) {
+                                alert("学生名单上传失败!");
+                            }
+                        });
+                    }
+
                     window.location.href = urlSkip;
                 },
                 statusCode: {
