@@ -93,6 +93,14 @@
                          }
                          $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>");                
                      }
+                 },
+                 statusCode: {
+                     403: function () {
+                         alert("学生无法修改话题!");
+                     },
+                     404: function () {
+                         alert("该小组不存在!");
+                     }
                  }
            });
        });

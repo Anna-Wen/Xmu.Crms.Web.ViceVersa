@@ -149,6 +149,12 @@
 
                     //显示小组信息
                     addgroupInfo(str);
+                },
+                statusCode: {
+                    404: function () {
+                        alert("该小组不存在!");
+                    }
+
                 }
             });//初始化结束
 
@@ -199,6 +205,14 @@
                 $("#topicDescription").text(topicInfo.Description);
                 $("#topicGroupLimit").text(topicInfo.GroupLimit);
                 $("#topicGroupMemberLimit").text(topicInfo.GroupMemberLimit);
+                    },
+                    statusCode: {
+                        403: function () {
+                            alert("学生无法修改话题!");
+                        },
+                        404: function () {
+                            alert("该小组不存在!");
+                        }
                     }
                     //error:
                 });
@@ -227,6 +241,14 @@
                     //window.location.href = str2;
                     alert("删除话题成功！");
                     window.history.back();
+                },
+                statusCode: {
+                    403: function () {
+                        alert("学生无法删除话题!");
+                    },
+                    404: function () {
+                        alert("该话题不存在!");
+                    }
                 }
 
             });
