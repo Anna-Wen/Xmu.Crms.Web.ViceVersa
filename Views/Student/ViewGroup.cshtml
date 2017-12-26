@@ -162,6 +162,7 @@
                     var id2 = "#delete" + (i + 1);
                     $(id2).on('click', function () {
                         alert('你已删除该队员！');
+                        $(id1).hide();
                     });
                     //上方学生名单的删除图标
                     //$(id2).on('click', function () { $(id1).remove();});
