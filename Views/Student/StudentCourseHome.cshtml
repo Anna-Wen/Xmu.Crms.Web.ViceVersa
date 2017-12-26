@@ -48,8 +48,9 @@
                  {
                      for (var i = 0; i < data.length; i++)
                      {
+                         //data[i]=CourseClassVO
                          $("#").append("<br/>");
-                         $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(" + data[i].courseId + ")' id=" + data[i].id + "><h3 class='classtitle'>"
+                         $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(" + data[i].courseId + "," + data[i].id + ")' id=" + data[i].id + "><h3 class='classtitle'>"
                             +"<span id='course'>"+ data[i].courseName + "</span>"
                             +"<button onclick='quit(event,"+data[i].id+")'>退选课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr>"
                             +"<td class='tabletext'>班级：<span id='name'>"+data[i].time+"</span></td><td class='tabletext' id= 'site'> 课程地点："+data[i].site+"</td></tr><tr>"
@@ -82,9 +83,9 @@
             });
         }
 
-        function detailedInfo(courseId)
+        function detailedInfo(courseId,classId)
         {
-            window.location.href = "/Student/CourseHome?courseId=" + courseId; 
+            window.location.href = "/Student/CourseHome?courseId=" + courseId + "&classId=" + classId; 
         }
     </script>
 </body>

@@ -16,9 +16,9 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () { 
-            var classId = 1;  //班级id从哪里来不懂
-            var courseId = 1;
-            var groupId=1;
+            var courseId = window.location.href.split("=")[1];
+            var classId = window.location.href.split("=")[2];
+            
 
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');

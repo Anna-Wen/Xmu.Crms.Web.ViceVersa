@@ -16,8 +16,8 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
-            //var courseId = window.location.href.split("=")[1];//当前课程号 !!!!!!!!!!!!!!!!!
-            var courseId = 1;
+            var courseId = window.location.href.split("=")[1];
+            var classId = window.location.href.split("=")[2];
 
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
@@ -28,7 +28,7 @@
             //查看固定分组按钮
             var checkGroup = document.getElementById('checkGroup');
             checkGroup.onclick = function () {
-                window.location.href = "/Student/ViewGroup";
+                window.location.href = "/Student/ViewGroup?courseId=" + courseId + "&classId=" + classId;
             };
 
         //初始化
