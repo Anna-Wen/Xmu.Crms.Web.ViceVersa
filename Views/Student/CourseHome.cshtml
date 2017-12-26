@@ -38,11 +38,12 @@
             contentType: "application/json;charset=utf-8",
             success: function (data, status) {
                 var discussionNumber = 1;
-               
+               //data=seminarVO
                 //显示讨论课按钮
                 for (var i = 0; i < data.length; i++ , discussionNumber++) {
                     var disid = "dis" + discussionNumber;
-                    var url = "/Student/DiscussionClass?index=" + courseId + "=" + discussionNumber; //传递课程id（为了查看成绩）和讨论课id
+                     //传递课程id（为了查看成绩）和讨论课id、讨论课编号 给DiscussionClass
+                    var url = "/Student/DiscussionClass?courseId=" + courseId + "seminarId=" + data[i].id + "discussionNumber=" + discussionNumber;
                     $('#discussion').append("<div class='block' id=" + disid + " onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + discussionNumber + "</div></div>");
                 }
             }
