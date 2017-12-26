@@ -31,9 +31,9 @@
                 url: '/topic/' + topicId,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
-                    
+                    //data=topicVO
                     //显示话题信息
-                    //$('LargerTitle').text(data.serial);   话题序号
+                    $('LargerTitle').text(data.serial);   
                     $('#title').text(data.name);
                     $('#desc').text(data.description);
                     $('#limitg').text(data.groupLimit);
@@ -60,9 +60,9 @@
             });
         })
         function whenSelectTopic() {
-            var topicId = window.location.href.split("=")[2];//当前话题号
-            var groupId = 233;
+            var groupId = 233;  ///controller去得？
             var topic = { Id: topicId };
+
             $.ajax({
                 type: 'POST',
                 url: '/group/' + groupId + '/topic',

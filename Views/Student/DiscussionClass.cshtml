@@ -15,12 +15,11 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="~/js/dropzone.js"></script>
 
-
     <script>
-        
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
-            var topicId = window.location.href.split("=")[2];//当前讨论课号
+            var seminarId = window.location.href.split("=")[2];//当前讨论课号
+            var discussionNumber = window.location.href.split("=")[2];//当前讨论课编号（页面显示）
             
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
@@ -65,8 +64,9 @@
             //查看成绩按钮
             var checkGrade = document.getElementById('checkGrade');
             checkGrade.onclick = function () {
-                window.location.href = "/Student/ViewGrade";
+                window.location.href = "/Student/ViewGrade?courseId=" + courseId;
             };
+
 
             //随机分组 显示自己小组信息
             var addgroupInfo = function (a) {
@@ -76,6 +76,7 @@
                     url: '/seminar/' + a + '/group/my',
                     contentType: "application/json;charset=utf-8",
                     success: function (data, status) {
+                        //data为GroupVO
 
                         $('#groupmember').append("<div class='line'></div>");
                         $('#groupmember').append("<label class='itemName'>选择话题：</label>");
@@ -104,10 +105,10 @@
                     url: '/seminar/' + a + '/topic',
                     contentType: "application/json;charset=utf-8",
                     success: function (data, status) {
-
+                        //data[i]为TopicVO
                         for (var i = 0; i < data.length; i++) {
-
-                            var url = "/Student/ViewTopic?index=" + courseId+"="+ data[i].id;  //传递话题id
+                            //传递课程id和话题id  给ViewTopic
+                            var url = "/Student/ViewTopic?courseId=" + courseId +"topicId="+ data[i].id;  
                             $('#topicButton').append("<div class='smallblock' onClick=(window.location.href='" + url + "')><div class='blockFont'>话题" + data[i].serial + "</div></div>");
                         }
 
@@ -126,20 +127,20 @@
             //初始化
             $.ajax({
                 type: 'GET',
-                url: '/seminar/' + topicId,
+                url: '/seminar/' + seminarId,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
 
                     //显示讨论课信息
-                    $('#LargeTitle').append(topicId);
+                    $('#LargeTitle').append(discussionNumber);
                     $('#Group').text(data.groupingMethod);
                     $('#starttime').text(data.startTime);
                     $('#endtime').text(data.endTime);
                     //显示话题
-                    addtopicButton(topicId);
+                    addtopicButton(seminarId);
                     //显示小组信息
                     if (data.groupingMethod != "fixed") {
-                        addgroupInfo(topicId);
+                        addgroupInfo(seminarId);
                     }
                 }
             });

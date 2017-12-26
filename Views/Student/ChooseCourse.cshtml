@@ -44,7 +44,7 @@
         <div class="clear"></div>
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
+    @*<script>
         $(document).ready(function () {
             //初始化
             $.ajax({
@@ -56,7 +56,7 @@
                 }
             });
         })
-    </script>
+    </script>*@
     <script>
         //选择课程
         function choose(event, id) {
@@ -114,6 +114,9 @@
                 url: u,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
+                    //data=CourseClassVO
+
+
                         //$('#mainContent').hide();
                         //$('#mainContent').append("<div class='content' id='mainContent'><div class='title'>选择课程</div><hr class='line' /><div class='checkcourse'><form class='itemName'>任课教师：<input type='text' name='teacher' id='checkteacher'><br />课程名称：<input type='text' name='course' id='checkcourse'><input type='submit' value='查询' id='check'></form></div></div>");
                         //for (var i = 0; i < data.length; i++)
