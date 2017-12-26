@@ -29,24 +29,27 @@
             //查看固定分组按钮
             var checkGroup = document.getElementById('checkGroup');
             checkGroup.onclick = function () {
-                window.location.href = "/Student/ViewGroup?courseId=" + courseId + "&classId=" + classId;
+                window.location.href = "/Student/ViewGroup?courseId=" + courseId + "=" + classId;
             };
 
+            
         //初始化
         $.ajax({
             type: 'GET',
             url: '/course/' + courseId+'/seminar',
             contentType: "application/json;charset=utf-8",
+            dataType: "json",
             headers: { "Authorization": "Bearer " + token },
             success: function (data, status) {
+                
                 var discussionNumber = 1;
                //data=seminarVO
                 //显示讨论课按钮
                 for (var i = 0; i < data.length; i++ , discussionNumber++) {
-                    var disid = "dis" + discussionNumber;
+                    
                      //传递课程id（为了查看成绩）和讨论课id、讨论课编号 给DiscussionClass
-                    var url = "/Student/DiscussionClass?courseId=" + courseId + "seminarId=" + data[i].id + "discussionNumber=" + discussionNumber;
-                    $('#discussion').append("<div class='block' id=" + disid + " onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + discussionNumber + "</div></div>");
+                    var url = "/Student/DiscussionClass?courseId=" + courseId + "=" + data[i].id;
+                    $('#discussion').append("<div class='block' id=" + data[i].id + " onClick=(window.location.href='" + url + "')><div class='blockFont'>" + data[i].name + "</div></div>");
                 }
             }
         });
@@ -56,6 +59,7 @@
             type: 'GET',
             url: '/course/' + courseId,
             contentType: "application/json;charset=utf-8",
+            dataType: "json",
             headers: { "Authorization": "Bearer " + token },
             success: function (data, status) {
 
