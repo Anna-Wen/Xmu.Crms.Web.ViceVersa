@@ -114,19 +114,20 @@
                 }
                 var courseId = getQueryString("courseId");//当前课程id
                 var seminarId = getQueryString("seminarId");//当前讨论课号
+                var seminarNumber = getQueryString("seminarNumber");//当前讨论课号
 
-                if (parseInt($("#groupLimit").val()) < 0 || parseInt($("#groupLimit").val(groupLimit)) < 0) {
+                if (parseInt($("#groupLimit").val()) < 0 || parseInt($("#groupLimit").val()) < 0) {
                     alert("信息填写有误！");
                     return;
                 }
                 var ata = {
-                    Id: $("#serialId").val(),
+                    Serial: $("#serialId").val(),
                     Name: $("#name").val(),
                     Description: $("#description").val(),
                     GroupLimit: $("#groupLimit").val(),
                     GroupMemberLimit: $("#groupLeft").val()
                 };
-                urlSkip = "/Teacher/CheckSeminar?courseId=" + courseId + "&seminarId=" + seminarId;//&seminarNumber=1" + courseId;
+                urlSkip = "/Teacher/CheckSeminar?courseId=" + courseId + "&seminarId=" + seminarId+"&seminarNumber=" + seminarNumber;
                 $.ajax({
                     type: 'POST',
                     url: "/seminar/" + seminarId + "/topic",
@@ -136,7 +137,7 @@
                     headers: { "Authorization": "Bearer " + token },
                     success: function (data) {
                         alert("话题创建操作成功！");
-                        window.history.go(-1);
+                        window.location.href = urlSkip;
                     },
                     statusCode: {
                         400: function (error) {
