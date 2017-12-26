@@ -20,7 +20,6 @@
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];//当前讨论课号
-            var discussionNumber = window.location.href.split("=")[2];//当前讨论课编号（页面显示）
             
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
@@ -112,7 +111,7 @@
                         //data[i]为TopicVO
                         for (var i = 0; i < data.length; i++) {
                             //传递课程id和话题id  给ViewTopic
-                            var url = "/Student/ViewTopic?courseId=" + courseId +"topicId="+ data[i].id;  
+                            var url = "/Student/ViewTopic?courseId=" + courseId +"="+ data[i].id;  
                             $('#topicButton').append("<div class='smallblock' onClick=(window.location.href='" + url + "')><div class='blockFont'>话题" + data[i].serial + "</div></div>");
                         }
 
@@ -137,14 +136,14 @@
                 success: function (data, status) {
 
                     //显示讨论课信息
-                    $('#LargeTitle').append(discussionNumber);
+                    $('#LargeTitle').append(data.name);
                     $('#Group').text(data.groupingMethod);
                     $('#starttime').text(data.startTime);
                     $('#endtime').text(data.endTime);
                     //显示话题
                     addtopicButton(seminarId);
                     //显示小组信息
-                    if (data.groupingMethod != "fixed") {
+                    if (data.groupingMethod != "固定分组") {
                         addgroupInfo(seminarId);
                     }
                 }
