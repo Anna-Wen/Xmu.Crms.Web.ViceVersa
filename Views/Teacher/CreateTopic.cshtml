@@ -44,13 +44,12 @@
         $("#post").click(function() {
             var ata = { 
                 Id: $("#serialId").val(), 
-                Name: $("#Name").val(), 
-                Description: $("#Description").val(), 
-                GroupLimit: $("#GroupLimit").val(), 
-                GroupMemberLimit: $("#GroupLeft").val() 
+                Name: $("#name").val(), 
+                Description: $("#description").val(), 
+                GroupLimit: $("#groupLimit").val(), 
+                GroupMemberLimit: $("#groupLeft").val() 
+
                 };
-            
-            
             $.ajax({
                 type: 'POST',
                 url: "/seminar/" + seminarId+"/topic",
@@ -85,10 +84,10 @@
             });
         $("#reset").click(function () { 
             $("#serialId").val("");
-            $("#Name").val("");
-            $("#Description").val("");
-            $("#GroupLimit").val("");
-            $("#GroupLeft").val("");
+            $("#name").val("");
+            $("#description").val("");
+            $("#groupLimit").val("");
+            $("#groupLeft").val("");
         });
        })
     </script>
@@ -122,20 +121,20 @@
                     </div>
                     <div class="item">
                         <label class="itemName">题目*:</label>
-                        <input type="text" id="Name" class="middleInput">
+                        <input type="text" id="name" class="middleInput">
                     </div>
                     <div class="item">
                         <label class="itemName">说明*:</label>
                         <!--<textarea id="courseinfo" cols="80" rows="5"></textarea>-->
-                        <input type="text" id="Description" class="bigInput">
+                        <input type="text" id="description" class="bigInput">
                     </div>
                     <div class="item">
                         <label class="itemName">组数限制*:</label>
-                        <input type="text" id="GroupLimit" class="smallInput">
+                        <input type="text" id="groupLimit" class="smallInput">
                     </div>
                     <div class="item">
                         <label class="itemName">组内人数上限*:</label>
-                        <input type="text" id="GroupLeft" class="smallInput">
+                        <input type="text" id="groupLeft" class="smallInput">
                     </div>
                     <div class="item">
                         <button  class="submit" id="post">提交</button>
