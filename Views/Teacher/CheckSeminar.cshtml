@@ -137,13 +137,16 @@
                     $('#seStartTime').text(data.startTime);
                     $('#seEndTime').text(data.endTime);
 
-                    var afterSeminar = 0;                        //判断当前讨论课是否过期 未解决
-                    //var myDate = new Date();;     //获取当前时间
-                    //var endDay = data.endTime.split("/")[1];
-                    //var endMon = data.endTime.split("/")[2];
-                    //var endYear = data.endTime.split("/")[3];
-                    //if (myDate.getFullYear().toString() > endYear || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 > endMon) || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 == endMon && myDate.getDate().toString() > endDay)) afterSeminar = 1;
-                    //alert(afterSeminar);
+                    //判断当前讨论课是否过期 0表示未过期，1表示过期
+                    var afterSeminar = 0;       
+                    var myDate = new Date();;     //获取当前时间
+                    var endDay = data.endTime.split("-")[2];
+                    var endMon = data.endTime.split("-")[1];
+                    var endYear = data.endTime.split("-")[0];
+                    if (myDate.getFullYear() > parseInt(endYear) || (myDate.getFullYear() == parseInt(endYear) && myDate.getMonth() > parseInt(endMon)) || (myDate.getFullYear() == parseInt(endYear) && myDate.getMonth()  == endMon && myDate.getDate().toString() > endDay))
+                        afterSeminar = 1;
+                    alert(afterSeminar);
+                    alert(endDay);
 
                     //data=SeminarVO
                     for (var i = 0; i < data.topics.length; i++) {
