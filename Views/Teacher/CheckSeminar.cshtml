@@ -114,7 +114,6 @@
             });
 
             
-            //document.write("xxxx");
             $.ajax({
                 type: 'GET',
                 url: '/seminar/' + seminarId,
@@ -135,13 +134,13 @@
                     //if (myDate.getFullYear().toString() > endYear || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 > endMon) || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 == endMon && myDate.getDate().toString() > endDay)) afterSeminar = 1;
                     //alert(afterSeminar);
 
-
+                    //data=SeminarVO
                     for (var i = 0; i < data.topics.length; i++) {
-
-                        var url = "/Teacher/CheckTopic?index=" + courseId + "=" + data.topics[i].id + "=" + afterSeminar;  //传递话题id
+                        //传递话题id 是否已过时
+                        var url = "/Teacher/CheckTopic?courseId=" + courseId + "&topicId=" + data.topics[i].id + "&afterSeminar=" + afterSeminar;  
                         $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
                     }
-                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?index=" + courseId + "=" + seminarId +"')><img src='/images/add.png' width='110' height='110'></div>");
+                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?courseId=" + courseId + "&seminarId=" + seminarId +"')><img src='/images/add.png' width='110' height='110'></div>");
                 }
             });
         })
@@ -150,6 +149,7 @@
         $('#delete').click(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];
+
             $.ajax({
                 type: "DELETE",
                 url: "/seminar/" + seminarId,
@@ -165,7 +165,8 @@
             $("#score").click(function () {
                 var courseId = window.location.href.split("=")[1];//当前课程id
                 var seminarId = window.location.href.split("=")[2];
-                var url = "/Teacher/TeacherScoreHome?index=" + courseId+"=" + seminarId;
+            
+                var url = "/Teacher/TeacherScoreHome?courseId=" + courseId +"&seminarId=" + seminarId;
                 window.location.href = url;
         });
 
@@ -186,7 +187,8 @@
 
     <script type="text/javascript">
             function update_submit() {
-                var seminarId = window.location.href.split("=")[1];//当前讨论课号
+                var seminarId = window.location.href.split("=")[2];//当前讨论课号
+
                 if ($("#up_sub").text() == "修改") {
                     var seminarInfo = {
                         Name: $("#seName").text(),

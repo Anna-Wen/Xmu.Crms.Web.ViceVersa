@@ -102,12 +102,12 @@
             });
         });
         function returnBack() {
-            //alert("back");//------
             window.history.go(-1);
         }
             //提交新建讨论课信息
             function submitSeminarInfo() {
-            var urlSkip = "/Teacher/TeacherCourseInformation";
+                var urlSkip = "/Teacher/TeacherCourseInformation";
+
             var seminarInfo = {
                 Name: $("#name").val(),
                 StartTime: $("#startTime").val(),
@@ -122,7 +122,7 @@
                     A: $("#a").val()
                 }
             };
-            //alert(seminarInfo.GroupingMethod);//--------------------------
+            
             var courseId = window.location.href.split("=")[1];//获取当前courseId
 
             $.ajax({

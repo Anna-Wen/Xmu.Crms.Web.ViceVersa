@@ -27,8 +27,8 @@
                 success: function (data, status) {
 
                     for (var i = 0; i < data.length; i++) {
-
-                        var url = "/Teacher/CheckClassInfo?index=" + courseId+"="+data[i].id;  //传递班级id 
+                        //data[i]=ClassVO
+                        var url = "/Teacher/CheckClassInfo?courseId=" + courseId +"&classId="+data[i].id;  //传递班级id 
 
                         $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>" + data[i].name + "</div></div>");
                     }
@@ -46,8 +46,9 @@
                 success: function (data, status) {
 
                     for (var i = 0; i < data.length; i++) {
-
-                        var url = "/Teacher/CheckSeminar?index=" + courseId + "="+data[i].id+"="+(i+1);  //传递讨论课id 
+                        //data[i]=SeminarVO
+                        //传递讨论课id 讨论课编号
+                        var url = "/Teacher/CheckSeminar?courseId=" + courseId + "&seminarId="+data[i].id+"&seminarNumber="+(i+1);  
 
                         $('#seminarButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + (i+1) + "</div></div>");
                     }

@@ -86,7 +86,7 @@
 
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
-            var seminarId = window.location.href.split("=")[2];//当前讨论课号
+            var topicId = window.location.href.split("=")[2];
             var afterSeminar = window.location.href.split("=")[3];//判断是否已过时
 
             if (afterSeminar == 1)
@@ -136,7 +136,7 @@
             //初始化
             $.ajax({
                 type: 'GET',
-                url: '/Topic/' + seminarId,
+                url: '/Topic/' + topicId,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
 
@@ -155,7 +155,7 @@
         });
     </script>
     <script type="text/javascript">
-        var str = window.location.href.split("=")[1];//当前讨论课号
+        var topicId = window.location.href.split("=")[2];//当前话题id
 
         function update_submit() {
             if ($("#up_sub").text() == "修改") {
@@ -185,7 +185,7 @@
 
                 $.ajax({
                     
-                    url: "/topic/" + str,
+                    url: "/topic/" + topicId,
                     type: "PUT",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
@@ -215,11 +215,11 @@
         }//修改/确认点击结束
     </script>
     <script type="text/javascript">
-        var seminarId = window.location.href.split("=")[2];
+        var topicId = window.location.href.split("=")[2];
         //var urlSkip = "/Teacher/NewSeminar"+str;//跳转到查看新讨论吗？？？-------------------
         function delete_topic() {
             $.ajax({
-                url: "/topic/" + seminarId,
+                url: "/topic/" + topicId,
                 typt: "DELETE",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
