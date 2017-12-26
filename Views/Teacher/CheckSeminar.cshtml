@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="item">
-                        <button class="leftButton" id="score">评分</button>
+                        <button class="leftButton" id="score"></button>
                         <button class="middleButton" id="up_sub" onclick="update_submit()">修改</button>
                         <button class="rightButton" id="delete">删除讨论课</button>
                         <div class="clear"></div>
@@ -137,14 +137,34 @@
                     $('#seStartTime').text(data.startTime);
                     $('#seEndTime').text(data.endTime);
 
-                    var afterSeminar = 0;                        //判断当前讨论课是否过期 未解决
-                    //var myDate = new Date();;     //获取当前时间
-                    //var endDay = data.endTime.split("/")[1];
-                    //var endMon = data.endTime.split("/")[2];
-                    //var endYear = data.endTime.split("/")[3];
-                    //if (myDate.getFullYear().toString() > endYear || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 > endMon) || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 == endMon && myDate.getDate().toString() > endDay)) afterSeminar = 1;
-                    //alert(afterSeminar);
+                    //判断当前讨论课是否过期 0表示未过期，1表示过期
+                    var afterSeminar = 0;       
+                    var myDate = new Date();;     //获取当前时间
+                    var endDay = data.endTime.split("-")[2];
+                    var endMon = data.endTime.split("-")[1];
+                    var endYear = data.endTime.split("-")[0];
+                    if (myDate.getFullYear() > endYear || (myDate.getFullYear() == endYear && myDate.getMonth()+1 > endMon) || (myDate.getFullYear() == endYear && myDate.getMonth()+1 == endMon && myDate.getDate() > endDay))
+                        afterSeminar = 1;
 
+                    if (afterSeminar == 0) {
+                        $("#score").text("查看选题");
+                        //$("#up_sub").attr("disabled", false);
+                        //$("#delete").attr("disabled", false); 
+                        document.getElementById("up_sub").style.color = "black";
+                        document.getElementById("delete").style.color = "black"; 
+
+                    }
+                    else {
+                        $("#score").text("评分");
+                        $("#up_sub").attr("disabled", true); 
+                        $("#delete").attr("disabled", true);
+                        $("#up_sub").css("background-color", "lightgray");
+                        $("#delete").css("background-color", "lightgray");
+                        //document.getElementById("up_sub").style.color = "black";
+                        //document.getElementById("delete").style.color = "black"; 
+                        //$("#up_sub").css("color", "#555555");
+                        //$("#delete").css("color", "#555555"); 
+                    }
                     //data=SeminarVO
                     for (var i = 0; i < data.topics.length; i++) {
                         //传递话题id 是否已过时
@@ -164,6 +184,14 @@
     </script>
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
         $('#delete').click(function () {
             function getQueryString(name) {
                 var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -211,7 +239,10 @@
                 var courseId = getQueryString("courseId");//当前课程id
                 var seminarId = getQueryString("seminarId");//当前讨论课号
             
-                var url = "/Teacher/TeacherScoreHome?courseId=" + courseId +"&seminarId=" + seminarId;
+                if ($('#score').text() == "查看选题")
+                    var url = "/Teacher/CheckTopicSelection?courseId=" + courseId + "&seminarId=" + seminarId;
+                else
+                    var url = "/Teacher/TeacherScoreHome?courseId=" + courseId + "&seminarId=" + seminarId;
                 window.location.href = url;
         });
 
