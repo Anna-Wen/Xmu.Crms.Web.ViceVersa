@@ -68,11 +68,9 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-        	//$("#userName").text("JasperMaik");
-        	//$("#teacherId").text("JasperMaik");
         	   $.ajax({
                   type: "GET",
-        		  url: "/me/teacher",
+        		  url: "/me",
         		  contentType:"application/json;charset=utf-8",
         		  dataType: "json",
         		  success: function(data,status)
@@ -89,7 +87,12 @@
                       $("#teacherTitle").text(data.title);
                       $("#teacherEmail").text(data.email);
                       $("#teacherPhone").text(data.phone);
-        		  }
+                  },
+                  statusCode: {
+                      404: function () {
+                          alert("该用户不存在!");
+                          }
+                      }
         		});
         	});
     </script>
@@ -154,7 +157,12 @@
                          $("#teacherTitle").text(teacherInfo.Title);
                          $("#teacherEmail").text(teacherInfo.Email);
                          $("#teacherPhone").text(teacherInfo.Phone);
-                      }
+                     }，
+                     statusCode: {
+                         404: function () {
+                             alert("该用户不存在!");
+                         }
+                     }
                      //error:
                  });
         	}

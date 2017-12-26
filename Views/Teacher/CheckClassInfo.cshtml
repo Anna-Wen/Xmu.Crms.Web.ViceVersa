@@ -221,6 +221,18 @@
                             $("#classC").text(classInfo.Proportions.C);
                             $("#classB").text(classInfo.Proportions.B);
                             $("#classA").text(classInfo.Proportions.A);
+                        },
+                        statusCode:{
+                            403: function (message) {
+                                if (message == "1")
+                                    alert("学生无法修改班级!");
+                                else if (message == "2")
+                                    alert("无法修改他人班级!");
+                            },
+                            404: function () {
+                                alert("该班级不存在!");
+                            }
+
                         }
                         //error:
                     });
@@ -245,6 +257,18 @@
                     alert("您已成功删除该班级！");
                     //window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
                     window.history.go(-1);
+                },
+                statusCode: {
+                    403: function (message) {
+                        if (message == "1")
+                            alert("学生无法删除班级!");
+                        else if (message == "2")
+                            alert("无法删除他人班级!");
+                    },
+                    404: function () {
+                        alert("该班级不存在!");
+                    }
+
                 }
             });
 

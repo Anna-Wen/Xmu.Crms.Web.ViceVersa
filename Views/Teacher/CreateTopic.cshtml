@@ -59,11 +59,27 @@
                     alert("话题创建操作成功！");
                     window.history.go(-1);
                 },
+                statusCode: {
+                    400: function (error) {
+                        alert(error.msg);
+                    },
+                    401: function (error) {
+                        alert(error.msg);
+                    },
+                    403: function (error) {
+                        alert(error.msg);
+                    },
+                    404: function (error) {
+                        alert(error.msg);
+                    },
+                    409: function (error) {
+                        alert(error.msg);
+                    }
+                }
                 //error: function (err) {
                 //    alert(err)
                 //}
             });
-        });
         $("#reset").click(function () { 
             $("#serialId").val("");
             $("#Name").val("");

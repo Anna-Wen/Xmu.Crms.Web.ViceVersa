@@ -39,6 +39,12 @@
                     $('#limitg').text(data.groupLimit);
                     $('#limitm').text(data.groupMemberLimit);
                 
+                },
+                statusCode: {
+                    404: function ()
+                    {
+                        alert("找不到该话题!");
+                    }
                 }
             });
             //初始化   左侧
@@ -66,6 +72,14 @@
                 success: function (data, status) {
                     alert("选择话题操作成功！");
                     window.history.back();
+                },
+                statusCode: {
+                    404: function (message) {
+                        if (message == "1") {
+                            alert("该话题不存在!");
+                        }
+                    }
+
                 }
             });
         }

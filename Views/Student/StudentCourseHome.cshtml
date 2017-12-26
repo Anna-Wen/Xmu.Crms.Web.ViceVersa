@@ -79,6 +79,15 @@
                         var block = "#" + classId;
                         $(block).hide();
                     }
+                },
+                statusCode: {
+                    404: function (message) {
+                        if (message == "1")
+                            alert("该用户不存在！");
+                        if (message == "2")
+                            alert("该班级不存在！");
+                    }
+
                 }
             });
         }

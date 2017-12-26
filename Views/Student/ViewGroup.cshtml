@@ -39,6 +39,20 @@
                     data: JSON.stringify(student),
                     success: function (data, status) { 
 
+                    },
+                    statusCode: {
+                        403: function () {
+                            alert("无法添加！");
+                        },
+                        404: function (message) {
+                            if (message == "1")
+                                alert("该固定小组不存在！");
+                            else if (message == "2")
+                                alert("用户不存在！");
+                        },
+                        409: function () {
+                            alert("不合法操作！");
+                        }
                     }
                 });
             };
@@ -54,6 +68,17 @@
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(student),
                     success: function (data, status) {
+                    },
+                    statusCode: {
+                        403: function () {
+                            alert("只有组长才能删除组员！");
+                        },
+                        404: function (message) {
+                            if (message == "1")
+                                alert("该固定小组不存在！");
+                            else if (message == "2")
+                                alert("用户不存在！");
+                        }
 
                     }
                 });
@@ -102,7 +127,12 @@
                                 //addGroupMembers(data[i]);
                             });
                         }
-                     }
+                    },
+                    statusCode: {
+                        400: function () {
+                            alert("输入数据格式错误!");
+                        }
+                    }
 
                 });
             };
@@ -175,6 +205,13 @@
                             $('#studenttable1').append("<tr id='" + rowNumber + "'><td>队员</td><td>" + data.members[i].number + "</td><td>" + data.members[i].name + "</td></tr>");
                         }
                
+                },
+                statusCode: {
+                    403: function () {
+                        alert("教师无法访问当前页面!");
+                        return;
+                    }
+
                 }
                 
             });
