@@ -140,7 +140,11 @@
                         var url = "/Teacher/CheckTopic?courseId=" + courseId + "&topicId=" + data.topics[i].id + "&afterSeminar=" + afterSeminar;
                         $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
                     }
-                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?courseId=" + courseId + "&seminarId=" + seminarId +"')><img src='/images/add.png' width='110' height='110'></div>");
+                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?index=" + courseId + "=" + seminarId +"')><img src='/images/add.png' width='110' height='110'></div>");
+                },
+                statusCode: {
+                    404: function () {
+                        alert("该讨论课不存在!");
                     }
 
                 }
