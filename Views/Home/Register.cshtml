@@ -93,10 +93,11 @@
                 urlSkip = "/Teacher/BasicInfo";//跳转到个人首页？？？-------------------
             else
                 urlSkip = "/Student/BasicInfo";
-
+            var school = $('#school').find('option:selected').attr('value');
             var Info = {
                 Name: $("#name").text(),
                 Number: $("#number").text(),
+                School: school,
                 Email: $("#email").text(),
                 Gender: g,
                 Type: r,
@@ -160,10 +161,6 @@
         function getSchool() {
             //var city = $("#city").val();
             var city = ($("#city").find('option:selected').attr('value'));//--------------
-            //alert(city);
-            //document.write("school");//=====================
-            if ($("#school").val() != null)//这里应该是用text还是val？
-            {
                 $.ajax({
                     //url: "/school?city=" + city,
                     url: "/school?city=" + city,
@@ -180,7 +177,6 @@
                         }
                     }//加载学校信息
                 });
-            }
         }//获取学校end
         </script>
 </body>
