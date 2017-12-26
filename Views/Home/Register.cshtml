@@ -161,21 +161,24 @@
         function getSchool() {
             //var city = $("#city").val();
             var city = ($("#city").find('option:selected').attr('value'));//--------------
-                $.ajax({
-                    //url: "/school?city=" + city,
-                    url: "/school?city=" + city,
-                    type: "GET",
-                    contentType: "application/json:charset=utf-8",
-                    success: function (data, status) {//加载学校信息
-                        for (var i = 0; i < data.length; i++) {
-                            if (i == 0) {
-                                $('#school').empty();
-                                $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
-                            }
-                            else
-                                $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
+            //alert(city);//=======================
+            $.ajax({
+                url: "/school?city=" + city,
+                type: "GET",
+                contentType: "application/json:charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {//加载学校信息
+                    alert(data.length);//==================
+                    for (var i = 0; i < data.length; i++) {
+                        if (i == 0) {
+                            $('#school').empty();
+                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
                         }
-                    }//加载学校信息
+                        else
+                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
+                    }
+                }//加载学校信息
+                // ,error: function(){ alter(no school found!)}//===================
                 });
         }//获取学校end
         </script>
