@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>学生查看讨论课（固定）</title>
     <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css"/>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="~/js/dropzone.js"></script>
 
@@ -29,7 +30,7 @@
             
             //上传报告按钮
             $("#uploadReport").click(function (evt) {
-                var fileUpload = $("#files").get(0);
+                var fileUpload = $("#report").get(0);
                 var files = fileUpload.files;
                 var f = new FormData();
                 for (var i = 0; i < files.length; i++) {
@@ -37,7 +38,7 @@
                 }
                 $.ajax({
                     type: "POST",
-                    url: "/Student/DiscussionClass",
+                    url: "/upload/report?seminarId=" + seminarId,
                     contentType: false,
                     processData: false,
                     data: f,
@@ -213,11 +214,11 @@
                     
                 </div>
                 <div class="item">
-                    <form method="post" enctype="multipart/form-data">
+                    @*<form method="post" enctype="multipart/form-data">
                         <input type="file" id="files" name="files" multiple />
-                        <input type="button" class="uploadbutton" id="uploadReport" value="Upload Selected Files"/>上传报告
-                    </form>
-                    @*<button class="uploadbutton" id="uploadReport">上传报告</button>*@
+                        <input type="button" class="uploadbutton" id="uploadReport" value="上传报告"/>
+                    </form>*@
+                    <button class="uploadbutton" data-toggle="modal" data-target="#uploadReportDialog">上传报告</button>
                 </div>
                 <div class="item">
                     <button class="viewscorebutton" id="checkGrade">查看分数</button>
@@ -227,5 +228,30 @@
         </div>
         <div class="clear"></div>
     </div>
+    <div class="modal fade" id="uploadReportDialog" tabindex="-1" role="dialog" aria-labelledby="uploadReportDialogLabel" aria-hidden="true">
+        <form class="modal-dialog" role="document" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadReportDialogLabel">上传报告</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="form-group">
+                            <label for="report" class="col-form-label">选择文件</label>
+                            <input type="file" accept="application/pdf" class="form-control" id="report" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="uploadReport" value="提交" class="btn btn-primary">提交</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>

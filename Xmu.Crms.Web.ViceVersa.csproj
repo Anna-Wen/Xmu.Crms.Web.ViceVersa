@@ -8,6 +8,17 @@
     <LangVersion>latest</LangVersion>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="wwwroot\report\**" />
+    <Compile Remove="wwwroot\roster\**" />
+    <Content Remove="wwwroot\report\**" />
+    <Content Remove="wwwroot\roster\**" />
+    <EmbeddedResource Remove="wwwroot\report\**" />
+    <EmbeddedResource Remove="wwwroot\roster\**" />
+    <None Remove="wwwroot\report\**" />
+    <None Remove="wwwroot\roster\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
@@ -81,8 +92,6 @@
     <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
     <None Include="wwwroot\lib\jquery\LICENSE.txt" />
-    <None Include="wwwroot\report\233.pdf" />
-    <None Include="wwwroot\roster\周一1-2班.xlsx" />
     <ProjectReference Include="..\Xmu.Crms.Shared\Xmu.Crms.Shared.csproj" />
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.3" />
   </ItemGroup>
