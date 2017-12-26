@@ -55,21 +55,6 @@
                         <input type="date" id="endTime" class="timeStyle">
                     </div>
                     <div class="item">
-                        <label class="itemName">评分规则:</label>
-                        <label class="itemName">讨论课分数占比</label>
-                        <input type="text" id="presentation" name="seminarGrade" class="smallInput">
-                        <label class="itemName">报告分数占比</label>
-                        <input type="text" id="report" name="seminarGrade" class="smallInput">
-                    </div>
-                    <div class="item" style="margin-left: 18%">
-                        <label class="itemName">5分占比</label>
-                        <input type="text" id="c" name="seminarGrade" class="smallInput">
-                        <label class="itemName">4分占比</label>
-                        <input type="text" id="b" name="seminarGrade" class="smallInput">
-                        <label class="itemName">3分占比</label>
-                        <input type="text" id="a" name="seminarGrade" class="smallInput">
-                    </div>
-                    <div class="item">
                         <button class="submit" id="submit" onclick="submitSeminarInfo()">提 交</button>
                         <button class="reset" id="reset" onclick="empty()">重 置</button>
                         <div class="clear"></div>
@@ -106,26 +91,23 @@
             window.history.go(-1);
         }
             //提交新建讨论课信息
-            function submitSeminarInfo() {
-                var urlSkip = "/Teacher/TeacherCourseInformation";
+        function submitSeminarInfo() {
+                var courseId = window.location.href.split("=")[1];//获取当前courseId
+                var urlSkip = "/Teacher/TeacherCourseInformation?courseId="+courseId;
 
+                if ($("#startTime").val() == "" || $("#name").val() == "" || $("#description").val() == "")
+                {
+                    alert("课程信息填写不完整！");
+                    return;
+                }
             var seminarInfo = {
                 Name: $("#name").val(),
                 StartTime: $("#startTime").val(),
                 EndTime: $("#endTime").val(),
                 Description: $("#description").val(),
-                GroupingMethod: ($("#groupingMethod").find('option:selected').attr('value')),
-                Proportions: {
-                    Report: $("#report").val(),
-                    Presentation: $("#presentation").val(),
-                    C: $("#c").val(),
-                    B: $("#b").val(),
-                    A: $("#a").val()
-                }
+                GroupingMethod: ($("#groupingMethod").find('option:selected').attr('value'))
             };
-            
-            var courseId = window.location.href.split("=")[1];//获取当前courseId
-
+          
             $.ajax({
                 url:"/course/"+courseId+"/seminar",
                 type:"POST",
@@ -164,11 +146,6 @@
             $("#startTime").val("");
             $("#endTime").val("");
             $("#description").val("");
-            $("#report").val("");
-            $("#presentation").val("");
-            $("#c").val("");
-            $("#b").val("");
-            $("#a").val("");
         }//重置课程信息end
 
     </script>

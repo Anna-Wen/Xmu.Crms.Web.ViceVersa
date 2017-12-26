@@ -91,15 +91,23 @@
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
-            var courseId = window.location.href.split("=")[1];//当前课程id
-            var seminarId = window.location.href.split("=")[2];
-            var seminarNO = window.location.href.split("=")[3];
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
 
+            var courseId = getQueryString("courseId");//当前课程id
+            var seminarId = getQueryString("seminarId");//当前班级号
+            var seminarNO = getQueryString("seminarNO");//当前班级号s
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
             returnbtn.onclick = function () {
                 window.history.go(-1);
-            }; 
+            };
             $('#Title').text("讨论课"+seminarNO);
 
             //初始化   左侧
@@ -115,7 +123,7 @@
                 }
             });
 
-            
+
             $.ajax({
                 type: 'GET',
                 url: '/seminar/' + seminarId,
@@ -129,13 +137,16 @@
                     $('#seStartTime').text(data.startTime);
                     $('#seEndTime').text(data.endTime);
 
-                    var afterSeminar = 0;                        //判断当前讨论课是否过期 未解决
-                    //var myDate = new Date();;     //获取当前时间
-                    //var endDay = data.endTime.split("/")[1];
-                    //var endMon = data.endTime.split("/")[2];
-                    //var endYear = data.endTime.split("/")[3];
-                    //if (myDate.getFullYear().toString() > endYear || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 > endMon) || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 == endMon && myDate.getDate().toString() > endDay)) afterSeminar = 1;
-                    //alert(afterSeminar);
+                    //判断当前讨论课是否过期 0表示未过期，1表示过期
+                    var afterSeminar = 0;       
+                    var myDate = new Date();;     //获取当前时间
+                    var endDay = data.endTime.split("-")[2];
+                    var endMon = data.endTime.split("-")[1];
+                    var endYear = data.endTime.split("-")[0];
+                    if (myDate.getFullYear() > parseInt(endYear) || (myDate.getFullYear() == parseInt(endYear) && myDate.getMonth() > parseInt(endMon)) || (myDate.getFullYear() == parseInt(endYear) && myDate.getMonth()  == endMon && myDate.getDate().toString() > endDay))
+                        afterSeminar = 1;
+                    alert(afterSeminar);
+                    alert(endDay);
 
                     //data=SeminarVO
                     for (var i = 0; i < data.topics.length; i++) {

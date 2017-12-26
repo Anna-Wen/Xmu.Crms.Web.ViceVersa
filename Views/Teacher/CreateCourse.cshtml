@@ -85,8 +85,7 @@
                 alert("必填信息填写不全!");
                 return;
             }
-            if (parseInt($("#report").val()) + parseInt($("#presentation").val()) != 100 || parseInt($("#c").val()) + parseInt($("#b").val()) + parseInt($("#a").val()) != 100)
-            {
+            if (parseInt($("#report").val()) + parseInt($("#presentation").val()) != 100 || parseInt($("#c").val()) + parseInt($("#b").val()) + parseInt($("#a").val()) != 100 || parseInt($("#report").val()) < 0 || parseInt($("#presentation").val()) < 0 || parseInt($("#c").val()) < 0 || parseInt($("#b").val()) < 0 || parseInt($("#a").val()) < 0) {
                 alert("分数比例填写不正确！");
                 return;
             }

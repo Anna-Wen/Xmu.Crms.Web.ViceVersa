@@ -78,8 +78,18 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script type="text/javascript">
             var token = window.localStorage.getItem("jwt");
+
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+
             $(document).ready(function () {
-                var courseId = window.location.href.split("=")[1];//当前课程id
+                var courseId = getQueryString("courseId");//当前课程id
 
                 //返回上一页按钮
                 var returnbtn = document.getElementById('returnbtn');
@@ -101,11 +111,15 @@
             });
 
 
-            //提交新建课程信息
+            //提交新建班级信息
             function submitClassInfo() {
-                var courseId = window.location.href.split("=")[1];//当前courseId
-                
+                var courseId = getQueryString("courseId");//当前课程id
                 var urlSkip = "/Teacher/TeacherCourseInformation?courseId=" + courseId;//跳转到课程内页首页？？？-------------------
+                if ($("#name").val() == "")
+                {
+                    alert("班级名不能为空！");
+                    return;
+                }
                 var classInfo = {
                 Name: $("#name").val(),
                 Time: $("#time").val(),
