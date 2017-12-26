@@ -77,7 +77,6 @@
                   headers: { "Authorization": "Bearer " + token },
         		  success: function(data,status)
                   {
-        			  $("#pic").attr("src",data.avatar);
                       $("#userName").text(data.id);
                       $("#teacherId").text(data.number);
                       $("#teacherName").text(data.name);
@@ -164,7 +163,7 @@
                      },
                      statusCode: {
                          404: function () {
-                             alert("该用户不存在!");
+                             alert("您的输入信息有误！");
                          }
                      }
                      //error:
