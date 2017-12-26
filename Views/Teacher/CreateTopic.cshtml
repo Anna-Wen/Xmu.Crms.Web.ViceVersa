@@ -13,85 +13,6 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
-    <script>
-        var token = window.localStorage.getItem("jwt");
-        $(document).ready(function () {
-            var courseId = window.location.href.split("=")[1];//当前课程id
-            var seminarId = window.location.href.split("=")[2];
-
-            //返回上一页按钮
-            var returnbtn = document.getElementById('returnbtn');
-            returnbtn.onclick = function () {
-                window.history.go(-1);
-            };
-
-
-            //初始化   左侧
-            $.ajax({
-                type: 'GET',
-                url: '/course/' + courseId,
-                contentType: "application/json;charset=utf-8",
-                headers: { "Authorization": "Bearer " + token },
-                success: function (data, status) {
-
-                    $('#courseName').text(data.name);
-                    $('#courseIntroduction').text(data.description);
-                }
-            });
-
-
-
-        $("#post").click(function() {
-            var ata = { 
-                Id: $("#serialId").val(), 
-                Name: $("#name").val(), 
-                Description: $("#description").val(), 
-                GroupLimit: $("#groupLimit").val(), 
-                GroupMemberLimit: $("#groupLeft").val() 
-
-                };
-            $.ajax({
-                type: 'POST',
-                url: "/seminar/" + seminarId+"/topic",
-                data: JSON.stringify(ata),
-                contentType: "application/json:charset=utf-8",
-                dataType: "json",
-                headers: { "Authorization": "Bearer " + token },
-                success: function (data) {
-                    alert("话题创建操作成功！");
-                    window.history.go(-1);
-                },
-                statusCode: {
-                    400: function (error) {
-                        alert(error.msg);
-                    },
-                    401: function (error) {
-                        alert(error.msg);
-                    },
-                    403: function (error) {
-                        alert(error.msg);
-                    },
-                    404: function (error) {
-                        alert(error.msg);
-                    },
-                    409: function (error) {
-                        alert(error.msg);
-                    }
-                }
-                //error: function (err) {
-                //    alert(err)
-                //}
-            });
-        $("#reset").click(function () { 
-            $("#serialId").val("");
-            $("#name").val("");
-            $("#description").val("");
-            $("#groupLimit").val("");
-            $("#groupLeft").val("");
-        });
-       })
-    </script>
-
     <div class="top">
         <div class="font">
             课堂管理系统
@@ -146,6 +67,109 @@
         </div>
         <div class="clear"></div>
     </div>
+    <script>
+        var token = window.localStorage.getItem("jwt");
+        $(document).ready(function () {
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+            var courseId = getQueryString("courseId");//当前课程id
+            var seminarId = getQueryString("seminarId");//当前讨论课号
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+        })
+
+
+            $("#post").click(function () {
+                function getQueryString(name) {
+                    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) {
+                        return unescape(r[2]);
+                    }
+                    return null;
+                }
+                var courseId = getQueryString("courseId");//当前课程id
+                var seminarId = getQueryString("seminarId");//当前讨论课号
+                var seminarNumber = getQueryString("seminarNumber");//当前讨论课号
+
+                if (parseInt($("#groupLimit").val()) < 0 || parseInt($("#groupLimit").val()) < 0) {
+                    alert("信息填写有误！");
+                    return;
+                }
+                var ata = {
+                    Serial: $("#serialId").val(),
+                    Name: $("#name").val(),
+                    Description: $("#description").val(),
+                    GroupLimit: $("#groupLimit").val(),
+                    GroupMemberLimit: $("#groupLeft").val()
+                };
+                urlSkip = "/Teacher/CheckSeminar?courseId=" + courseId + "&seminarId=" + seminarId+"&seminarNumber=" + seminarNumber;
+                $.ajax({
+                    type: 'POST',
+                    url: "/seminar/" + seminarId + "/topic",
+                    data: JSON.stringify(ata),
+                    contentType: "application/json:charset=utf-8",
+                    dataType: "json",
+                    headers: { "Authorization": "Bearer " + token },
+                    success: function (data) {
+                        alert("话题创建操作成功！");
+                        window.location.href = urlSkip;
+                    },
+                    statusCode: {
+                        400: function (error) {
+                            alert(error.msg);
+                        },
+                        401: function (error) {
+                            alert(error.msg);
+                        },
+                        403: function (error) {
+                            alert(error.msg);
+                        },
+                        404: function (error) {
+                            alert(error.msg);
+                        },
+                        409: function (error) {
+                            alert(error.msg);
+                        }
+                    }
+                    //error: function (err) {
+                    //    alert(err)
+                    //}
+                });
+            });
+
+            $("#reset").click(function () {
+                $("#serialId").val("");
+                $("#name").val("");
+                $("#description").val("");
+                $("#groupLimit").val("");
+                $("#groupLeft").val("");
+            })
+    </script>
 </body>
 </html>
 
