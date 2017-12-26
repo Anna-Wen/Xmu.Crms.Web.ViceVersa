@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css" />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () { 
             var courseId = window.location.href.split("=")[1];
             var classId = window.location.href.split("=")[2];
@@ -37,6 +38,7 @@
                     url: '/class/'+classId+'/classgroup/add',
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(student),
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) { 
 
                     },
@@ -67,6 +69,7 @@
                     url: '/class/' + classId + '/classgroup/remove',
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify(student),
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                     },
                     statusCode: {
@@ -93,6 +96,7 @@
                     type: 'GET',
                     url: u,
                     contentType: "application/json;charset=utf-8",
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         
                         $("#studenttable2").remove();
@@ -187,6 +191,7 @@
                 type: 'GET',
                 url: '/class/' + classId + '/classgroup',
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                    
 
@@ -221,6 +226,7 @@
                 type: 'GET',
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#courseName').text(data.name);

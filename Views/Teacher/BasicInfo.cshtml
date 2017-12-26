@@ -67,12 +67,14 @@
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function(){
         	   $.ajax({
                   type: "GET",
         		  url: "/me",
         		  contentType:"application/json;charset=utf-8",
-        		  dataType: "json",
+                  dataType: "json",
+                  headers: { "Authorization": "Bearer " + token },
         		  success: function(data,status)
                   {
         			  $("#pic").attr("src",data.avatar);
@@ -97,6 +99,7 @@
         	});
     </script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         function update_submit(){
         	if($("#up_sub").text()=="修改"){
                 var teacherInfo={Number: $("#teacherId").text(),
@@ -142,6 +145,7 @@
                      contentType: "application/json;charset=utf-8",
                      dataType: "json",
                      data: JSON.stringify(teacherInfo),
+                     headers: { "Authorization": "Bearer " + token },
                      success: function (data, status) {
                          $("[id^='input']").hide();
                          $("[id^='teacher']").show();
@@ -157,7 +161,7 @@
                          $("#teacherTitle").text(teacherInfo.Title);
                          $("#teacherEmail").text(teacherInfo.Email);
                          $("#teacherPhone").text(teacherInfo.Phone);
-                     }，
+                     },
                      statusCode: {
                          404: function () {
                              alert("该用户不存在!");

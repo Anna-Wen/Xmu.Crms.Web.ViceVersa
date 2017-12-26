@@ -92,6 +92,7 @@
     <script>PDFObject.embed("/pdf/sample-3pp.pdf", "#example1");</script> -->*@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
             var groupId = getQueryString("groupId");  //获得上一个页面传来的小组ID
             $.ajax({
@@ -99,6 +100,7 @@
                 url: "/group/"+groupId,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     $("#seminarName").text("讨论课报告");
                     $("#groupName").text(data.name);
@@ -125,6 +127,7 @@
         });
     </script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         //取的url中对应名的参数
         function getQueryString(name) {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -147,6 +150,7 @@
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(reportGrade),
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         alert("报告分数已提交！");
                         window.history.back();

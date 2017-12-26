@@ -56,18 +56,13 @@
         		  dataType: "json",
         		  success: function(data,status)
                   {
-                      if (data == false) {
-                          alert("输入的信息有误！请重新输入");
-                          $("#userName").empty;
-                          $("#password").empty;
-                      } else {
-                          if (data.type == "student")
-                              window.location.href = "/Student/BasicInfo";
-                          //$(window).attr("location", "/Student/BasicInfo");
-                          else if (data.type == "teacher") {
-                              window.location.href = "/Teacher/BasicInfo";
-                              //$(window).attr("location", "/Teacher/BasicInfo");
-                          }
+                      window.localStorage.setItem('jwt', data.jwt);
+                      if (data.type == "student")
+                          window.location.href = "/Student/BasicInfo";
+                      //$(window).attr("location", "/Student/BasicInfo");
+                      else if (data.type == "teacher") {
+                          window.location.href = "/Teacher/BasicInfo";
+                          //$(window).attr("location", "/Teacher/BasicInfo");
                       }
                   },
                   statusCode: {
