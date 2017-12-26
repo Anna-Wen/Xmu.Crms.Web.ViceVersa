@@ -108,6 +108,7 @@
                 type: "PUT",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
+                headers: { "Authorization": "Bearer " + data.jwt },
                 data: JSON.stringify(Info),
                 success: function (data, status) {
                     window.location.href = urlSkip;//跳转到个人首页
@@ -137,6 +138,7 @@
                 dataType: "json",
                 data: JSON.stringify(PersonInfo),
                 success: function (data, status) {
+                    window.localStorage.setItem('jwt', data.jwt);
                     putInfo();//调用上方提交绑定信息
                 },
                 statusCode: {
