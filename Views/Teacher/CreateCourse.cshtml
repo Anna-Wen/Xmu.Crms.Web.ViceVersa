@@ -108,6 +108,23 @@
                 success: function (data, status) {
                     alert("课程创建操作成功！");
                     window.location.href = urlSkip;
+                },
+                statusCode: {
+                    400: function (error) {
+                        alert(error.msg);
+                    },
+                    401: function (error) {
+                        alert(error.msg);
+                    },
+                    403: function (error) {
+                        alert(error.msg);
+                    },
+                    404: function (error) {
+                        alert(error.msg);
+                    },
+                    409: function (error) {
+                        alert(error.msg);
+                    }
                 }
             });
         }//提交新建课程信息end

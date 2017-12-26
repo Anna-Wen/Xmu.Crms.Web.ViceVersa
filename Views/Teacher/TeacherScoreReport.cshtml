@@ -103,6 +103,23 @@
                     $("#seminarName").text("讨论课报告");
                     $("#groupName").text(data.name);
                     $("#leader").text(data.leader.name);
+                },
+                statusCode: {
+                    400: function (error) {
+                        alert(error.msg);
+                    },
+                    401: function (error) {
+                        alert(error.msg);
+                    },
+                    403: function (error) {
+                        alert(error.msg);
+                    },
+                    404: function (error) {
+                        alert(error.msg);
+                    },
+                    409: function (error) {
+                        alert(error.msg);
+                    }
                 }
             });
         });
@@ -133,6 +150,23 @@
                     success: function (data, status) {
                         alert("报告分数已提交！");
                         window.history.back();
+                    },
+                    statusCode: {
+                        400: function (error) {
+                            alert(error.msg);
+                        },
+                        401: function (error) {
+                            alert(error.msg);
+                        },
+                        403: function (error) {
+                            alert(error.msg);
+                        },
+                        404: function (error) {
+                            alert(error.msg);
+                        },
+                        409: function (error) {
+                            alert(error.msg);
+                        }
                     }
                     //error:
                 });

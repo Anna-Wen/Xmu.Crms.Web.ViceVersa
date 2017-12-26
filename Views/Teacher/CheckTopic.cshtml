@@ -243,16 +243,23 @@
                     window.history.back();
                 },
                 statusCode: {
-                    403: function () {
-                        alert("学生无法删除话题!");
+                    400: function (error) {
+                        alert(error.msg);
                     },
-                    404: function () {
-                        alert("该话题不存在!");
+                    401: function (error) {
+                        alert(error.msg);
+                    },
+                    403: function (error) {
+                        alert(error.msg);
+                    },
+                    404: function (error) {
+                        alert(error.msg);
+                    },
+                    409: function (error) {
+                        alert(error.msg);
                     }
                 }
-
             });
-
         }
     </script>
 

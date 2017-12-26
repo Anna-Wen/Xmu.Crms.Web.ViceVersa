@@ -75,6 +75,23 @@
                     $("#startTime").val(data.startTime);
                     $("#endTime").val(data.endTime);
                     $("#description").val(data.description);
+                },
+                statusCode: {
+                    400: function (error) {
+                        alert(error.msg);
+                    },
+                    401: function (error) {
+                        alert(error.msg);
+                    },
+                    403: function (error) {
+                        alert(error.msg);
+                    },
+                    404: function (error) {
+                        alert(error.msg);
+                    },
+                    409: function (error) {
+                        alert(error.msg);
+                    }
                 }
             });
          });
@@ -105,6 +122,23 @@
                 data: JSON.stringify(courseInfo),
                 success: function (data, status) {
                     window.location.href = urlSkip;
+                },
+                statusCode: {
+                    400: function (error) {
+                        alert(error.msg);
+                    },
+                    401: function (error) {
+                        alert(error.msg);
+                    },
+                    403: function (error) {
+                        alert(error.msg);
+                    },
+                    404: function (error) {
+                        alert(error.msg);
+                    },
+                    409: function (error) {
+                        alert(error.msg);
+                    }
                 }
             });
         }//提交修改课程信息end

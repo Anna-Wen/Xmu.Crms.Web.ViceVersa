@@ -80,6 +80,23 @@
                         //在页面上删除
                         var block = "#" + courseId;
                         $(block).hide();
+                    },
+                    statusCode: {
+                        400: function (error) {
+                            alert(error.msg);
+                        },
+                        401: function (error) {
+                            alert(error.msg);
+                        },
+                        403: function (error) {
+                            alert(error.msg);
+                        },
+                        404: function (error) {
+                            alert(error.msg);
+                        },
+                        409: function (error) {
+                            alert(error.msg);
+                        }
                     }
                 });
             }
