@@ -21,10 +21,18 @@ namespace Xmu.Crms.Web.ViceVersa.VO
             City = city;
         }
 
+        public SchoolVO()
+        {
+        }
+
         public static implicit operator SchoolVO(School v)
         {
-            SchoolVO school = new SchoolVO(v.Id, v.Name, v.Province, v.City);
-            return school;
+            if (v != null)
+            {
+                SchoolVO school = new SchoolVO(v.Id, v.Name, v.Province, v.City);
+                return school;
+            }
+            return new SchoolVO();
         }
     }
 }
