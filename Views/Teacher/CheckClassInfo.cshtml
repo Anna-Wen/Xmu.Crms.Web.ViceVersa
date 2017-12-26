@@ -258,8 +258,19 @@
 
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
-        var classId = window.location.href.split("=")[2];//classId
-        var courseId = window.location.href.split("=")[1];//courseId
+
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        var courseId = getQueryString("courseId");//当前课程id
+        var classId = getQueryString("classId");//当前班级号
+
         var urlSkip = "/Teacher/CourseHome/" + courseId;
         function delete_class() {
             $.ajax({
