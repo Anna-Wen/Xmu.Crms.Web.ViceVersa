@@ -95,14 +95,16 @@
                 urlSkip = "/Student/BasicInfo";
             var school = $('#school').find('option:selected').attr('value');
             var Info = {
-                Name: $("#name").text(),
-                Number: $("#number").text(),
+                Name: $("#name").val(),
+                //Name: document.getElementById("bt2"),
+                Number: $("#number").val(),
+                Password:$("#password").val(),
                 School: school,
-                Email: $("#email").text(),
+                Phone: $("#phone").val(),
+                Email: $("#email").val(),
                 Gender: g,
                 Type: r,
-                Title: "",
-                avatat: ""
+                Title: ""
             };
             $.ajax({
                 url: "/me",
@@ -129,8 +131,8 @@
         function submitInfo() {
 
             var PersonInfo = {
-                Password: $("#password").text(),
-                Phone: $("#phone").text()
+                Password: $("#password").val(),
+                Phone: $("#phone").val()
             };
             $.ajax({
                 url: "/register",
@@ -159,7 +161,6 @@
     </script>
     <script type="text/javascript">
         function getSchool() {
-            //var city = $("#city").val();
             var city = ($("#city").find('option:selected').attr('value'));//--------------
             //alert(city);//=======================
             $.ajax({
@@ -168,7 +169,6 @@
                 contentType: "application/json:charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {//加载学校信息
-                    alert(data.length);//==================
                     for (var i = 0; i < data.length; i++) {
                         if (i == 0) {
                             $('#school').empty();
@@ -178,7 +178,6 @@
                             $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
                     }
                 }//加载学校信息
-                // ,error: function(){ alter(no school found!)}//===================
                 });
         }//获取学校end
         </script>
