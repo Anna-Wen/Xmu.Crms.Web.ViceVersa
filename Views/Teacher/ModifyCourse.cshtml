@@ -63,6 +63,7 @@
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () { 
             var courseId = getQueryString("courseId");
             $.ajax({
@@ -70,6 +71,7 @@
                 url: "/course/" + courseId,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     $("#name").val(data.name);
                     $("#startTime").val(data.startTime);
@@ -97,7 +99,7 @@
          });
     </script>
     <script type="text/javascript">
-
+        var token = window.localStorage.getItem("jwt");
             //提交修改课程信息
         function submitCourseInfo() {
             if ($("#name").val() == "" || $("#startTime").val() == "" || $("#endTime").val() == "")
@@ -120,6 +122,7 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(courseInfo),
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     window.location.href = urlSkip;
                 },

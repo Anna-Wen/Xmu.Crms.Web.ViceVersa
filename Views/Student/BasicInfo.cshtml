@@ -69,12 +69,14 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <!-- <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function(){
         	   $.ajax({
                   type: "GET",
         		  url: "/me",
         		  contentType:"application/json;charset=utf-8",
-        		  dataType: "json",
+                  dataType: "json",
+                  headers: { "Authorization": "Bearer " + token },
         		  success: function(data,status)
                   {
         			  $("#pic").attr("src",data.avatar);
@@ -94,6 +96,7 @@
         	});
     </script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         function update_submit(){
         	if($("#up_sub").text()=="修改"){
         		var studentInfo={Number: $("#studentId").text(),
@@ -139,6 +142,7 @@
                      contentType: "application/json;charset=utf-8",
                      dataType: "json",
                      data: JSON.stringify(studentInfo),
+                     headers: { "Authorization": "Bearer " + token },
                      success: function (data, status) {
                          $("[id^='input']").hide();
                          $("[id^='student']").show();

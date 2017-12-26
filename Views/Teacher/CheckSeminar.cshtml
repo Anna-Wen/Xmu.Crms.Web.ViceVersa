@@ -89,6 +89,7 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];
@@ -106,6 +107,7 @@
                 type: 'GET',
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#courseName').text(data.name);
@@ -118,6 +120,7 @@
                 type: 'GET',
                 url: '/seminar/' + seminarId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#seName').text(data.name);
@@ -152,6 +155,7 @@
         })
     </script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         $('#delete').click(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];
@@ -159,6 +163,7 @@
             $.ajax({
                 type: "DELETE",
                 url: "/seminar/" + seminarId,
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data) {
                     alert("删除讨论课操作成功！");
                     window.history.back();
@@ -201,6 +206,7 @@
     </script>
 
     <script type="text/javascript">
+            var token = window.localStorage.getItem("jwt");
             function update_submit() {
                 var seminarId = window.location.href.split("=")[2];//当前讨论课号
 
@@ -240,6 +246,7 @@
                         contentType: "application/json;charset=utf-8",
                         dataType: "json",
                         data: JSON.stringify(seminarInfo),
+                        headers: { "Authorization": "Bearer " + token },
                         success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
                             $("[id^='input']").hide();
                             $("[id^='se']").show();

@@ -83,7 +83,7 @@
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
-
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var topicId = window.location.href.split("=")[2];
@@ -107,6 +107,7 @@
                 type: 'GET',
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#courseName').text(data.name);
@@ -122,6 +123,7 @@
                     type: 'GET',
                     url: '/Topic/' + a + "/group",
                     contentType: "application/json;charset=utf-8",
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
 
                         for (var i = 0; i < data.length; i++)
@@ -138,6 +140,7 @@
                 type: 'GET',
                 url: '/Topic/' + topicId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     //显示讨论课信息
@@ -161,6 +164,7 @@
         });
     </script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         var topicId = window.location.href.split("=")[2];//当前话题id
 
         function update_submit() {
@@ -196,6 +200,7 @@
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(topicInfo),
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                 $("[id^='input']").hide();    //如果controller写了topic put方法则可以交换这里上下的注释部分---------------
                 $("[id^='topic']").show();
@@ -229,6 +234,7 @@
         }//修改/确认点击结束
     </script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         var topicId = window.location.href.split("=")[2];
         //var urlSkip = "/Teacher/NewSeminar"+str;//跳转到查看新讨论吗？？？-------------------
         function delete_topic() {
@@ -237,6 +243,7 @@
                 typt: "DELETE",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     //window.location.href = str2;
                     alert("删除话题成功！");

@@ -38,12 +38,14 @@
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
              $.ajax({
                  type: "GET",
                  url: "/class",
                  contentType: "application/json;charset=utf-8",
                  dataType: "json",
+                 headers: { "Authorization": "Bearer " + token },
                  success: function (data, status)
                  {
                      for (var i = 0; i < data.length; i++)
@@ -62,6 +64,7 @@
        });
     </script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         //点击退选课程按钮
         function quit(event,classId)
         {
@@ -72,6 +75,7 @@
                 url: "/class/" + classId + "/student/4",    //这里studentId要改！！
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     //在页面上删除
                     if (confirm("确定删除吗？"))

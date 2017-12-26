@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css" />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
 
@@ -30,6 +31,7 @@
                 type: 'GET',
                 url: '/course/' + courseId+'/grade',
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     for (var i = 0; i < data.length; i++)   
                     {
@@ -53,6 +55,7 @@
                 type: 'GET',
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#courseName').text(data.name);

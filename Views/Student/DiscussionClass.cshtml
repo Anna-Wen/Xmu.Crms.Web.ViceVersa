@@ -16,6 +16,7 @@
     <script src="~/js/dropzone.js"></script>
 
     <script>
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];//当前讨论课号
@@ -41,6 +42,7 @@
                     contentType: false,
                     processData: false,
                     data: f,
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data,status) {
                         alert("报告上传成功!");
                     },
@@ -75,6 +77,7 @@
                     type: 'GET',
                     url: '/seminar/' + a + '/group/my',
                     contentType: "application/json;charset=utf-8",
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         //data为GroupVO
 
@@ -104,6 +107,7 @@
                     type: 'GET',
                     url: '/seminar/' + a + '/topic',
                     contentType: "application/json;charset=utf-8",
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         //data[i]为TopicVO
                         for (var i = 0; i < data.length; i++) {
@@ -129,6 +133,7 @@
                 type: 'GET',
                 url: '/seminar/' + seminarId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     //显示讨论课信息
@@ -149,6 +154,7 @@
                 type: 'GET',
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#courseName').text(data.name);

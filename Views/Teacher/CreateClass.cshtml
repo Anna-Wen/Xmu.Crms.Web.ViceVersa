@@ -77,6 +77,7 @@
 
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script type="text/javascript">
+            var token = window.localStorage.getItem("jwt");
             $(document).ready(function () {
                 var courseId = window.location.href.split("=")[1];//当前课程id
 
@@ -90,6 +91,7 @@
                     type: 'GET',
                     url: '/course/' + courseId,
                     contentType: "application/json;charset=utf-8",
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
 
                         $('#courseName').text(data.name);
@@ -123,6 +125,7 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(classInfo),
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     alert("班级创建操作成功！");
                     window.location.href = urlSkip;

@@ -39,6 +39,7 @@
         </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
             //初始化
             $.ajax({
@@ -46,6 +47,7 @@
                 url: '/course',
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
                     for (var i = 0; i < data.length; i++) {
                         $("#mainContent").append("<br/>");
@@ -59,6 +61,7 @@
         });
     </script>
     <script>
+        var token = window.localStorage.getItem("jwt");
         //修改课程
         function modify(event,courseId)
         {
@@ -76,6 +79,7 @@
                     url: "/course/" + courseId,
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
+                    headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         //在页面上删除
                         var block = "#" + courseId;

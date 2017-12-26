@@ -60,6 +60,7 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            var token = window.localStorage.getItem("jwt");
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];
 
@@ -69,6 +70,7 @@
                 type: 'GET',
                 url: '/course/' + courseId,
                 contentType: "application/json;charset=utf-8",
+                headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
 
                     $('#courseName').text(data.name);
@@ -82,6 +84,7 @@
                  url: "/seminar/" + seminarId+"/group",
                  contentType: "application/json;charset=utf-8",
                  dataType: "json",
+                 headers: { "Authorization": "Bearer " + token },
                  success: function (data, status)
                  {
                      for (var i = 0; i < data.length; i++)
