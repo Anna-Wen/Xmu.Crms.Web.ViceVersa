@@ -108,7 +108,15 @@
             //提交新建讨论课信息
             function submitSeminarInfo() {
                 var urlSkip = "/Teacher/TeacherCourseInformation";
-
+                if ($("#startTime").val() == "" || $("#name").val() == "" || $("#description").val() == "")
+                {
+                    alert("课程信息填写不完整！");
+                    return;
+                }
+                if (parseInt($("#report").val()) + parseInt($("#presentation").val()) != 100 || parseInt($("#c").val()) + parseInt($("#b").val()) + parseInt($("#a").val()) != 100) {
+                    alert("分数比例填写不正确！");
+                    return;
+                }
             var seminarInfo = {
                 Name: $("#name").val(),
                 StartTime: $("#startTime").val(),
