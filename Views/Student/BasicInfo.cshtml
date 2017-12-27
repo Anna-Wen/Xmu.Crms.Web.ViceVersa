@@ -82,7 +82,6 @@
                   headers: { "Authorization": "Bearer " + token },
         		  success: function(data,status)
                   {
-        			  $("#pic").attr("src",data.avatar);
         			  $("#userName").text(data.id);
         			  $("#studentId").text(data.number);
                       $("#studentName").text(data.name);
