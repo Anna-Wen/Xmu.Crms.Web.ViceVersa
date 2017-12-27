@@ -120,12 +120,12 @@
                     alert("班级名不能为空！");
                     return;
                 }
-                if (!( $("#report").val() == "" && $("#presentation").val() == "" && $("#c").val() == "" && $("#b").val() == ""  &&("#a").val() == "") ) {
-                    if (parseInt($("#report").val()) + parseInt($("#presentation").val()) != 100 || parseInt($("#c").val()) + parseInt($("#b").val()) + parseInt($("#a").val()) != 100 || parseInt($("#report").val()) < 0 || parseInt($("#presentation").val()) < 0 || parseInt($("#c").val()) < 0 || parseInt($("#b").val()) < 0 || parseInt($("#a").val()) < 0) {
-                        alert("分数比例填写不正确！");
-                        return;
-                    }
-                }
+                //if (!( $("#report").val() == "" && $("#presentation").val() == "" && $("#c").val() == "" && $("#b").val() == ""  &&("#a").val() == "") ) {
+                //    if (parseInt($("#report").val()) + parseInt($("#presentation").val()) != 100 || parseInt($("#c").val()) + parseInt($("#b").val()) + parseInt($("#a").val()) != 100 || parseInt($("#report").val()) < 0 || parseInt($("#presentation").val()) < 0 || parseInt($("#c").val()) < 0 || parseInt($("#b").val()) < 0 || parseInt($("#a").val()) < 0) {
+                //        alert("分数比例填写不正确！");
+                //        return;
+                //    }
+                //}
                 var classInfo = {
                 Name: $("#name").val(),
                 Time: $("#time").val(),
@@ -139,7 +139,7 @@
                     A: $("#a").val()
                 }
                 };
-                var f;
+                var f = null;
                 if ($("#roster").val != "")
                 {
                     var fileUpload = $("#roster").get(0);
@@ -161,7 +161,8 @@
                     alert("班级创建操作成功！");
 
                     // 去upload excel
-                    if ($("#roster").val != "")
+                    //if ($("#roster").val != "")
+                    if (f != null)
                     {
                         $.ajax({
                             type: "POST",
@@ -172,14 +173,16 @@
                             headers: { "Authorization": "Bearer " + token },
                             success: function (data, status) {
                                 alert("学生名单上传成功!");
+                                window.location.href = urlSkip;
                             },
                             error: function (data) {
                                 alert("学生名单上传失败!");
+                                window.location.href = urlSkip;
                             }
                         });
                     }
-
-                    window.location.href = urlSkip;
+                    else
+                        window.location.href = urlSkip;
                 },
                 statusCode: {
                     400: function (error) {
@@ -195,7 +198,7 @@
                         alert(error.msg);
                     },
                     409: function (error) {
-                        alert(error.msg);
+                        alert("评分规则的比例填写不正确！");
                     }
                 }
             });
