@@ -91,6 +91,9 @@
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
+            // 设置ajax缓存不存
+            $.ajaxSetup({ cache: false });
+
             function getQueryString(name) {
                 var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                 var r = window.location.search.substr(1).match(reg);
@@ -139,7 +142,7 @@
 
                     //判断当前讨论课是否过期 0表示未过期，1表示过期
                     var afterSeminar = 0;       
-                    var myDate = new Date();;     //获取当前时间
+                    var myDate = new Date();     //获取当前时间
                     var endDay = data.endTime.split("-")[2];
                     var endMon = data.endTime.split("-")[1];
                     var endYear = data.endTime.split("-")[0];
@@ -148,10 +151,10 @@
 
                     if (afterSeminar == 0) {
                         $("#score").text("查看选题");
-                        //$("#up_sub").attr("disabled", false);
-                        //$("#delete").attr("disabled", false); 
-                        document.getElementById("up_sub").style.color = "black";
-                        document.getElementById("delete").style.color = "black"; 
+                        $("#up_sub").attr("disabled", false);
+                        $("#delete").attr("disabled", false); 
+                        $("#up_sub").css("background-color", "#d4eef2");
+                        $("#delete").css("background-color", "#d4eef2");
 
                     }
                     else {
@@ -192,6 +195,8 @@
             }
             return null;
         }
+        var courseId = getQueryString("courseId");//当前课程id
+        var seminarId = getQueryString("seminarId");
         $('#delete').click(function () {
             function getQueryString(name) {
                 var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -204,6 +209,7 @@
             var courseId = getQueryString("courseId");//当前课程id
             var seminarId = getQueryString("seminarId");//当前讨论课号
             urlSkip = "/Teacher/TeacherCourseInformation?courseId=" + courseId;
+
             $.ajax({
                 type: "DELETE",
                 url: "/seminar/" + seminarId,
@@ -227,6 +233,7 @@
             });
         });
             $("#score").click(function () {
+
                 function getQueryString(name) {
                     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                     var r = window.location.search.substr(1).match(reg);
@@ -239,6 +246,7 @@
                 var courseId = getQueryString("courseId");//当前课程id
                 var seminarId = getQueryString("seminarId");//当前讨论课号
             
+
                 if ($('#score').text() == "查看选题")
                     var url = "/Teacher/CheckTopicSelection?courseId=" + courseId + "&seminarId=" + seminarId;
                 else

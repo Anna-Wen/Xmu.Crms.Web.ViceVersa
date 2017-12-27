@@ -10,8 +10,20 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         var token = window.localStorage.getItem("jwt");
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        var courseId = getQueryString("courseId");//当前课程id
         $(document).ready(function () {
-            var courseId = window.location.href.split("=")[1];//当前课程id
+            // 设置ajax缓存不存
+            $.ajaxSetup({ cache: false });
+
 
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
