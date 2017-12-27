@@ -70,7 +70,10 @@
     <!-- <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
-        $(document).ready(function(){
+        $(document).ready(function () {
+                // 设置ajax缓存不存
+                $.ajaxSetup({ cache: false });
+
         	   $.ajax({
                   type: "GET",
         		  url: "/me",
