@@ -53,8 +53,10 @@ namespace Xmu.Crms.Web.ViceVersa.VO
                     user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "本科生", v.Avatar);
                 else if (v.Education == Education.Master)
                     user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "研究生", v.Avatar);
-                else
+                else if (v.Education == Education.Doctor)
                     user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "博士生", v.Avatar);
+                else
+                    user = new UserVO(v.Id, "student", v.Number, v.Name, v.Phone, v.Email, v.School, "", v.Avatar);
             }
             else
             {
