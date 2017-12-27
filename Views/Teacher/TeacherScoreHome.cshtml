@@ -59,8 +59,11 @@
     </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
+        var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
-            var token = window.localStorage.getItem("jwt");
+            // 设置ajax缓存不存
+            $.ajaxSetup({ cache: false });
+
             function getQueryString(name) {
                 var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                 var r = window.location.search.substr(1).match(reg);

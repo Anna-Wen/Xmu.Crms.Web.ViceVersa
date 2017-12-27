@@ -91,6 +91,9 @@
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
+            // 设置ajax缓存不存
+            $.ajaxSetup({ cache: false });
+
             function getQueryString(name) {
                 var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                 var r = window.location.search.substr(1).match(reg);

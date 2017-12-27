@@ -89,6 +89,8 @@
             }
 
             $(document).ready(function () {
+                $.ajaxSetup({ cache: false });
+
                 var courseId = getQueryString("courseId");//当前课程id
 
                 //返回上一页按钮
@@ -139,15 +141,14 @@
                     A: $("#a").val()
                 }
                 };
-                var f = null;
-                if ($("#roster").val != "")
-                {
-                    var fileUpload = $("#roster").get(0);
-                    var files = fileUpload.files;
-                    f = new FormData();
-                    for (var i = 0; i < files.length; i++) {
-                        f.append(files[i].name, files[i]);
-                    }
+
+                var fileUpload = $("#roster").get(0);
+                var files = fileUpload.files;
+                var flag = 0;
+                var f = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    f.append(files[i].name, files[i]);
+                    if(flag == 0) flag = 1;
                 }
 
             $.ajax({
@@ -161,8 +162,7 @@
                     alert("班级创建操作成功！");
 
                     // 去upload excel
-                    //if ($("#roster").val != "")
-                    if (f != null)
+                    if (flag != 0)
                     {
                         $.ajax({
                             type: "POST",
