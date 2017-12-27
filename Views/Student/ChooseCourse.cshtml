@@ -50,6 +50,8 @@
             var token = window.localStorage.getItem("jwt");
             $(document).ready(function () {
                 //初始化
+                // 设置ajax缓存不存
+                $.ajaxSetup({ cache: false });
             })
         </script>
     <script>
@@ -67,6 +69,7 @@
                     headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         //alert($('#table' + obj.id).id);
+                        alert("选课成功！");
                         $('#' + id).text("退选课程");
                     },
                     statusCode: {
@@ -90,6 +93,7 @@
                     headers: { "Authorization": "Bearer " + token },
                     success: function (data, status) {
                         //alert($('#table' + obj.id).id);
+                        alert("退课成功！");
                         $('#' + id).text("选择课程");
                     },
                     statusCode: {
