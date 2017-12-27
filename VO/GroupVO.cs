@@ -23,9 +23,26 @@ namespace Xmu.Crms.Web.ViceVersa.VO
             GroupVO groupVO = new GroupVO { Id = v.Id, Leader = v.Leader, Report = v.Report };
 
             // Grade (不包含PresentationGrade)
-            SeminarGradeVO seminarGradeVO = new SeminarGradeVO { ReportGrade = (int)v.ReportGrade, Grade = (int)v.FinalGrade };
-            groupVO.Grade = seminarGradeVO;
-
+            if (v.ReportGrade != null && v.FinalGrade != null)
+            {
+                SeminarGradeVO seminarGradeVO = new SeminarGradeVO { ReportGrade = (int)v.ReportGrade, Grade = (int)v.FinalGrade };
+                groupVO.Grade = seminarGradeVO;
+            }
+            else if (v.ReportGrade != null)
+            {
+                SeminarGradeVO seminarGradeVO = new SeminarGradeVO { ReportGrade = (int)v.ReportGrade, Grade = 0 };
+                groupVO.Grade = seminarGradeVO;
+            }
+            else if (v.FinalGrade != null)
+            {
+                SeminarGradeVO seminarGradeVO = new SeminarGradeVO { ReportGrade = 0, Grade = (int)v.FinalGrade };
+                groupVO.Grade = seminarGradeVO;
+            }
+            else
+            {
+                SeminarGradeVO seminarGradeVO = new SeminarGradeVO { ReportGrade = 0, Grade = 0 };
+                groupVO.Grade = seminarGradeVO;
+            }
             return groupVO;
         }
 

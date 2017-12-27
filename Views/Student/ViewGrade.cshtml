@@ -33,14 +33,17 @@
                 contentType: "application/json;charset=utf-8",
                 headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
+                    //data=SeminarGradeDetailVO
                     for (var i = 0; i < data.length; i++)   
                     {
-                        if (i % 2)                                    //实际下面应是讨论课序号
-                            $('#studenttable').append("<tr class='studenttabletralt'><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
-                                + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
-                        else
-                            $('#studenttable').append("<tr><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
-                                + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
+                        
+                            if (i % 2)                                    //实际下面应是讨论课序号
+                                $('#studenttable').append("<tr class='studenttabletralt'><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
+                                    + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
+                            else
+                                $('#studenttable').append("<tr><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
+                                    + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
+                       
                     }
                 },
                 statusCode: {

@@ -87,37 +87,43 @@
         function checkStudent() {
             var numberInput = $("#NumberInput").val();
             var nameInput = $("#NameInput").val();
-
-            alert(1);
+            
             var url = "/class/" + classId + "/student?numBeginWith=" + numberInput + "&nameBeginWith=" + nameInput;
-            a(url);
+            a(url,0);
 
         };
 
         //动态生成下方学生名单
-        var a = function (u) {
-            alert(2);
+        var a = function (u, first) {
+            
             $.ajax({
                 type: 'GET',
                 url: u,
                 contentType: "application/json;charset=utf-8",
                 headers: { "Authorization": "Bearer " + token },
                 success: function (data, status) {
-
+                    var tab = document.getElementById("studenttable2");
                     //data=UserVO
+                    //if (first == 0) {
+                        
+                    //    var rows = tab.rows.length;//表格行数
+                    //    for (var i = 0; i < rows; i++) {
+                    //        //var id1 = "#" + (i + 1);
+                    //        //$(id1).hide();
+                    //        tab.deleteRow(0);
+                    //    }
+                    //    $('#check').after("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr></table>");
 
+                    //}
+                    //$('#check').after("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr></table>");
                     
-                    $('#check').after("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr></table>");
                     var rowNO = 1;
                     for (var i = 0; i < data.length; i++ , rowNO++) {
-
-
                         if (i % 2 == 1)//单行双行颜色不一样
-                            $('#studenttable2').append("<tr class='studenttabletralt'><td name='tdnumber'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + data[i].id + "' src='/images/smalladd.png' onclick='addGroupMembers(event," + data[i].id + ")'></td></tr>");
+                              $('#studenttable2').append("<tr class='studenttabletralt' id='" + rowNO +"'><td name='tdnumber'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + data[i].id + "' src='/images/smalladd.png' onclick='addGroupMembers(event," + data[i].id + ")'></td></tr>");
                         else
-                            $('#studenttable2').append("<tr><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO + "' src='/images/smalladd.png' onclick='addGroupMembers(event," + data[i].id + ")'></td></tr>");
-
-
+                            $('#studenttable2').append("<tr id='" + rowNO +"'><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO + "' src='/images/smalladd.png' onclick='addGroupMembers(event," + data[i].id + ")'></td></tr>");
+                       
                     }
                 },
                 statusCode: {
@@ -196,8 +202,8 @@
                 });
 
                 $('#content').append("<div class='block' id='block2'><div class='title'>添加队员</div><div class='line'></div><div class='itemBody'><div class='item'><label class='itemName'>学号：</label><input type='text'id='NumberInput'><label class='itemName'>姓名：</label><input type='text' id='NameInput'><div class='returnButton' id='check' onclick='checkStudent()'>查询</div></div></div></div>");
-
-                a("/class/" + classId + "/student");
+                $('#check').after("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr></table>");
+                a("/class/" + classId + "/student",1);
                
             };
 
