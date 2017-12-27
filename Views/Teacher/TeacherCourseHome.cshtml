@@ -41,6 +41,9 @@
     <script>
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
+            // 设置ajax缓存不存
+            $.ajaxSetup({ cache: false });
+
             //初始化
             $.ajax({
                 type: 'GET',

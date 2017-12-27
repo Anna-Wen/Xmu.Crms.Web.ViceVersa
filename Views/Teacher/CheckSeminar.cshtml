@@ -91,6 +91,9 @@
     <script type="text/javascript">
         var token = window.localStorage.getItem("jwt");
         $(document).ready(function () {
+            // 设置ajax缓存不存
+            $.ajaxSetup({ cache: false });
+
             function getQueryString(name) {
                 var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
                 var r = window.location.search.substr(1).match(reg);
@@ -102,13 +105,13 @@
 
             var courseId = getQueryString("courseId");//当前课程id
             var seminarId = getQueryString("seminarId");//当前班级号
-            var seminarNO = getQueryString("seminarNO");//当前班级号s
+            var seminarNumber = getQueryString("seminarNumber");//当前班级号s
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
             returnbtn.onclick = function () {
                 window.history.go(-1);
             };
-            $('#Title').text("讨论课"+seminarNO);
+            $('#Title').text("讨论课" + seminarNumber);
 
             //初始化   左侧
             $.ajax({
@@ -139,7 +142,7 @@
 
                     //判断当前讨论课是否过期 0表示未过期，1表示过期
                     var afterSeminar = 0;       
-                    var myDate = new Date();;     //获取当前时间
+                    var myDate = new Date();     //获取当前时间
                     var endDay = data.endTime.split("-")[2];
                     var endMon = data.endTime.split("-")[1];
                     var endYear = data.endTime.split("-")[0];
@@ -168,10 +171,10 @@
                     //data=SeminarVO
                     for (var i = 0; i < data.topics.length; i++) {
                         //传递话题id 是否已过时
-                        var url = "/Teacher/CheckTopic?courseId=" + courseId + "&topicId=" + data.topics[i].id + "&afterSeminar=" + afterSeminar;
+                        var url = "/Teacher/CheckTopic?courseId=" + courseId + "&topicId=" + data.topics[i].id + "&seminarId=" + seminarId + "&seminarNumber=" + seminarNumber;
                         $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
                     }
-                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?index=" + courseId + "=" + seminarId +"')><img src='/images/add.png' width='110' height='110'></div>");
+                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?courseId=" + courseId + "&seminarId=" + seminarId + "&seminarNumber=" + seminarNumber+"')><img src='/images/add.png' width='110' height='110'></div>");
                 },
                 statusCode: {
                     404: function () {
@@ -195,6 +198,17 @@
         var courseId = getQueryString("courseId");//当前课程id
         var seminarId = getQueryString("seminarId");
         $('#delete').click(function () {
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
+            var courseId = getQueryString("courseId");//当前课程id
+            var seminarId = getQueryString("seminarId");//当前讨论课号
+            urlSkip = "/Teacher/TeacherCourseInformation?courseId=" + courseId;
 
             $.ajax({
                 type: "DELETE",
@@ -202,7 +216,7 @@
                 headers: { "Authorization": "Bearer " + token },
                 success: function (data) {
                     alert("删除讨论课操作成功！");
-                    window.history.back();
+                    window.location.href = urlSkip;
                 },
                 statusCode: {
                     403: function () {
@@ -219,6 +233,20 @@
             });
         });
             $("#score").click(function () {
+
+                function getQueryString(name) {
+                    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) {
+                        return unescape(r[2]);
+                    }
+                    return null;
+                }
+
+                var courseId = getQueryString("courseId");//当前课程id
+                var seminarId = getQueryString("seminarId");//当前讨论课号
+            
+
                 if ($('#score').text() == "查看选题")
                     var url = "/Teacher/CheckTopicSelection?courseId=" + courseId + "&seminarId=" + seminarId;
                 else
@@ -244,7 +272,15 @@
     <script type="text/javascript">
             var token = window.localStorage.getItem("jwt");
             function update_submit() {
-                var seminarId = window.location.href.split("=")[2];//当前讨论课号
+                function getQueryString(name) {
+                    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) {
+                        return unescape(r[2]);
+                    }
+                    return null;
+                }
+                var seminarId = getQueryString("seminarId");//当前讨论课号
 
                 if ($("#up_sub").text() == "修改") {
                     var seminarInfo = {
