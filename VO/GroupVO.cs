@@ -8,6 +8,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class GroupVO
     {
+        /// <summary>
+        /// VO
+        /// 分组信息 对应SeminarGroup Model
+        /// @author Group ViceVersa
+        /// </summary>
         public long Id { get; set; }
         public string Name { get; set; }
         public UserVO Leader { get; set; }
@@ -16,6 +21,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string Report { get; set; }
         public SeminarGradeVO Grade { get; set; }
 
+        /// <summary>
+        /// 根据SeminarGroup构造
+        /// @author Group ViceVersa
+        /// </summary>
+        /// <param name="v">讨论课分组信息</param>
         // 另，Name的标准解决还没有！！！
         // 不包含Members Topics Name Grade.PresentationGrade
         public static implicit operator GroupVO(SeminarGroup v)
@@ -37,6 +47,10 @@ namespace Xmu.Crms.Web.ViceVersa.VO
             return groupVO;
         }
 
+        /// <summary>
+        /// 获取小组名
+        /// @author Group ViceVersa
+        /// </summary>
         // Name:解决方案是用第一个Topic的Serial和Leader的名字来命名
         public void GetName()
         {

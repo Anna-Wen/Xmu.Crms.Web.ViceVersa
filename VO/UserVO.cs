@@ -8,6 +8,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class UserVO
     {
+        /// <summary>
+        /// VO
+        ///用户信息 对应UserInfo Model
+        /// @author Group ViceVersa
+        /// </summary>
         public long Id { get; set; }
         public string Type { get; set; }        //只能是student、teacher
         public string Number { get; set; }
@@ -23,6 +28,19 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         {
         }
 
+        /// <summary>
+        /// 构造
+        /// @author Group ViceVersa
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <param name="type">用户类型</param>
+        /// <param name="number">学号/教工号</param>
+        /// <param name="name">姓名</param>
+        /// <param name="phone">电话</param>
+        /// <param name="email">邮箱</param>
+        /// <param name="school">学校</param>
+        /// <param name="title">学历/职称</param>
+        /// <param name="avatar">头像</param>
         public UserVO(long id, string type, string number, string name, string phone, string email, SchoolVO school, string title, string avatar)
         {
             Id = id;
@@ -36,6 +54,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
             Avatar = avatar;
         }
 
+        /// <summary>
+        /// 隐式转换构造
+        /// @author Group ViceVersa
+        /// </summary>
+        /// <param name="v">用户信息</param>
         public static implicit operator UserVO(UserInfo v)
         {
             //生成一个不包含Password属性的UserVO对象

@@ -7,6 +7,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class SeminarGradeDetailVO
     {
+        /// <summary>
+        /// VO
+        ///讨论课分数信息 
+        /// @author Group ViceVersa
+        /// </summary>
         public string SeminarName { get; set; }
         public string GroupName { get; set; }
         public string LeaderName { get; set; }

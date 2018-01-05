@@ -8,6 +8,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
 {
     public class SeminarVO
     {
+        /// <summary>
+        /// VO
+        ///讨论课信息 对应Seminar Model
+        /// @author Group ViceVersa
+        /// </summary>
         public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -16,6 +21,11 @@ namespace Xmu.Crms.Web.ViceVersa.VO
         public string EndTime { get; set; }
         public List<TopicVO> Topics { get; set; }
 
+        /// <summary>
+        /// 隐式转换构造
+        /// @author Group ViceVersa
+        /// </summary>
+        /// <param name="v">讨论课信息</param>
         public static implicit operator SeminarVO(Seminar v)
         {
             SeminarVO seminarVO = new SeminarVO { Id = v.Id, Name = v.Name, Description = v.Description, StartTime = v.StartTime.ToString("yyyy-MM-dd"), EndTime = v.EndTime.ToString("yyyy-MM-dd") };
